@@ -1,0 +1,122 @@
+{
+  "purpose": "Department illustrations for the visual prototype; not additional product offers.",
+  "created_on": "2026-10-13",
+  "assets": [
+    {
+      "id": "fashion",
+      "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The fashion department: a cognac leather tote bag, neatly folded cream knitwear, white minimal leather sneakers and sunglasses on a warm beige studio plinth. Contemporary refined styling.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-85a2a919-e9c2-4a16-ae66-e17483f2b553.png",
+      "path": "assets/departments/fashion.png",
+      "method": "Built-in OpenAI ImageGen",
+      "inspection": "Visually inspected; warm photorealistic department illustration with no people or visible branding."
+    },
+    {
+      "id": "beauty",
+      "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The beauty and perfume department: an unbranded amber perfume bottle with a plain cap, matte ivory skincare jars and tubes without any lettering, a makeup brush and a small rosy palette on pale limestone. Refined still life.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-a8886b40-9f43-4dc1-a3c9-64cb1044429b.png",
+      "path": "assets/departments/beauty.png",
+      "method": "Built-in OpenAI ImageGen",
+      "inspection": "Visually inspected; warm photorealistic department illustration with no people or visible branding."
+    },
+    {
+      "id": "tech",
+      "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The electronics department: matte charcoal over-ear wireless headphones, a plain silver laptop partly open, a compact mirrorless camera with lens and a modern smartphone whose screen is black. All completely unbranded and no labels. Arranged on light stone display plinths.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-29628b53-ff92-48b2-bc4b-ea439d8dcd6e.png",
+      "path": "assets/departments/tech.png",
+      "method": "Built-in OpenAI ImageGen",
+      "inspection": "Visually inspected; warm photorealistic department illustration with no people or visible branding."
+    },
+    {
+      "id": "home",
+      "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The home and interiors department: a beautiful bright modern living-room corner, cream upholstered lounge chair, pale oak side table, warm sculptural floor lamp and simple ceramic vase. Quiet premium interior styling, uncluttered scene, wide central composition.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-70fb053e-77d5-4b08-b98e-dff7e86042e6.png",
+      "path": "assets/departments/home.png",
+      "method": "Built-in OpenAI ImageGen",
+      "inspection": "Visually inspected; warm photorealistic department illustration with no people or visible branding."
+    },
+    {
+      "id": "kitchen",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the kitchen department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A brushed stainless-steel espresso machine, a compact cream toaster, an elegant saucepan and wooden cooking utensils, arranged together on a warm ivory kitchen counter.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-2390f1a2-dbcb-43eb-a9d2-2a3efc81583e.png",
+      "path": "assets/departments/kitchen.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "garden",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the garden department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A teak outdoor lounge chair, a terracotta potted olive plant and a small neat set of garden hand tools, arranged on warm stone paving with a soft beige wall behind.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-a4b0812d-8b83-4a4e-b0c6-38a4a9cfe218.png",
+      "path": "assets/departments/garden.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "sports",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the sports department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A pair of neutral running shoes, a yoga mat rolled beside a stainless-steel water bottle, two hand weights and a basketball, carefully arranged on warm light stone.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-4dcef1d9-4e1c-445d-8f22-99fc2199f555.png",
+      "path": "assets/departments/sports.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "toys",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the toys department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: Tasteful wooden building blocks, a small toy train, a plush teddy bear and an unbranded board-game box, grouped on a warm ivory tabletop.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-2b8b7295-027c-4d49-b2ef-3e680f45d21b.png",
+      "path": "assets/departments/toys.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "baby",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the baby department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A soft cream baby blanket, a small neutral plush rabbit, a natural wooden baby rattle, two plain baby bottles and tiny cotton baby booties, arranged on a warm ivory surface.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-9f4efb68-23cc-4aa3-9a22-7be60bce2bfe.png",
+      "path": "assets/departments/baby.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "food",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the food department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A still-life of artisan bread, coffee beans in a small ceramic bowl, a plain glass olive-oil bottle, citrus fruits and a small linen bag of dry pasta, grouped on a warm ivory counter.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-c30436af-4954-4aa7-8aac-5ea4f18f390f.png",
+      "path": "assets/departments/food.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "pets",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the pets department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: An elegant beige pet bed, a ceramic pet food bowl, a rope dog toy, a simple collar and a folded pet blanket, grouped on a warm stone floor.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-6107f04f-b7f4-4262-89de-90a8c1427e11.png",
+      "path": "assets/departments/pets.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "books",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the books department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: Several beautiful closed books with entirely blank neutral cloth covers, a pair of over-ear headphones, a plain unmarked vinyl record in an unprinted sleeve and a compact wooden bookshelf speaker, arranged together on a warm ivory tabletop.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-b097711d-81d0-4c50-b5b6-1ff64c8c06d1.png",
+      "path": "assets/departments/books.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    },
+    {
+      "id": "office",
+      "prompt": "Use case: product-mockup\nAsset type: category photograph for the premium DutyFreeDeal marketplace, for the office department.\nPrimary request: Create one realistic premium editorial product photograph illustrating this department.\nSubject: A plain notebook with no markings, a wooden pen tray, a mechanical pencil, a brushed-metal desk lamp and a neat folder with paper sheets, carefully arranged on a warm ivory desk.\nScene/backdrop: Warm neutral pale ivory and beige environment with real tactile surfaces and natural soft shadows.\nStyle/medium: Photorealistic editorial catalog photography, understated and polished, realistic material detail, no illustration or synthetic 3D-render appearance.\nComposition/framing: Landscape 3:2 image. All important objects centered in the middle 65 percent of the frame, with generous empty breathing room around the whole composition so the website can crop this photograph as a cover. Products must remain fully recognizable at small thumbnail size. Camera at a gentle three-quarter angle, cohesive still-life rather than a collage.\nLighting/mood: Soft natural daylight, calm premium atmosphere, gentle realistic shadows.\nConstraints: One photograph only. No people, no faces, no animals, no text, no numbers, no logos, no brand markings, no watermark, no UI. Plain unbranded products. Keep the color palette warm neutral and restrained.",
+      "source": "/Users/ethanlaloum/.codex/generated_images/01a134c1-ca59-7a40-a288-8347f0adcc00/exec-fb99f6a8-45da-41f0-864b-08058a6bc675.png",
+      "path": "assets/departments/office.png",
+      "inspection": "Visually inspected: warm neutral photorealistic landscape department still life, no people, text or visible logos; suitable for cover cropping.",
+      "method": "Built-in OpenAI ImageGen"
+    }
+  ],
+  "reused_assets": [
+    {
+      "id": "auto",
+      "path": "assets/car.png",
+      "prompt_reference": "README.md — Voiture"
+    },
+    {
+      "id": "construction",
+      "path": "assets/house.png",
+      "prompt_reference": "README.md — Maison préfabriquée"
+    }
+  ]
+}

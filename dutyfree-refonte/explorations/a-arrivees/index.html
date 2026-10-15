@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DutyFreeDeal · Arrivées</title>
+  <meta name="description" content="Exploration de direction A pour l’accueil DutyFreeDeal : le hall des arrivées des offres du monde, en signalétique et en palettes.">
+  <meta name="theme-color" content="#0B0C0E">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=Martian+Mono:wdth,wght@75..112.5,500..700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    /* Intro guard: only when motion is welcome, hide what the intro reveals; a failsafe always restores it. */
+    (function () {
+      try {
+        if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+        var root = document.documentElement;
+        root.classList.add('intro');
+        setTimeout(function () { root.classList.remove('intro'); }, 4000);
+      } catch (e) { /* no-op: the page stays fully visible */ }
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js" defer></script>
+  <script src="../shared/catalog.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <div class="demo-band" role="note" aria-label="Mention de démonstration">
+    <div class="wrap demo-band__inner">
+      <span class="demo-band__tag">Démo</span>
+      <p class="demo-band__text" data-demo-notice></p>
+      <a class="demo-band__link" href="#sources" data-open-sources>Sources et licences</a>
+    </div>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="hdr">
+      <div class="wrap hdr__inner">
+        <a class="logo" href="./" data-action="top" aria-label="DutyFreeDeal, revenir en haut de l’accueil">
+          <span class="logo__mark" data-icon="arrow-down-right"></span>
+          <span class="logo__word" aria-hidden="true">DutyFreeDeal</span>
+        </a>
+
+        <form class="hdr-search" id="hdr-search" role="search" action="../../" data-search-form>
+          <label class="sr-only" for="hdr-q">Rechercher parmi les offres livrables <span data-dest-in></span></label>
+          <input class="hdr-search__input" id="hdr-q" name="q" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search" data-search-input>
+          <button class="hdr-search__submit" type="submit"><span data-icon="search"></span><span class="sr-only">Rechercher</span></button>
+        </form>
+
+        <div class="hdr__tools">
+          <div class="dest" data-dest-root>
+            <button class="dest-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="dest-menu-hdr" data-dest-trigger>
+              <span class="dest-btn__label">Livraison</span>
+              <span class="dest-btn__value">
+                <span class="flaps flaps--xs" data-flaps="dest-hdr" aria-hidden="true"></span>
+                <span class="dest-btn__name" data-dest-name></span>
+                <span class="dest-btn__caret" data-icon="caret-down"></span>
+              </span>
+            </button>
+            <div class="menu dest-menu dest-menu--hdr" id="dest-menu-hdr" role="menu" aria-label="Pays de livraison" hidden data-dest-menu></div>
+          </div>
+
+          <div class="lang" role="group" aria-label="Langue">
+            <button class="lang__btn" type="button" lang="fr" aria-pressed="true" data-lang="fr">FR</button>
+            <button class="lang__btn" type="button" lang="en" aria-pressed="false" data-lang="en">EN</button>
+          </div>
+
+          <a class="hdr-link" href="../../#/wishlist" data-fav-link>
+            <span class="hdr-link__icon" data-icon="heart"></span>
+            <span class="hdr-link__label">Favoris</span>
+            <span class="pill" data-fav-count aria-hidden="true">0</span>
+          </a>
+
+          <a class="cart-tile" href="../../#/cart" data-cart-link>
+            <span class="cart-tile__icon" data-icon="cart"></span>
+            <span class="cart-tile__label">Panier</span>
+            <span class="flaps flaps--cart" data-flaps="cart" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="signbar" aria-label="Navigation principale">
+      <div class="wrap signbar__inner">
+        <ul class="signbar__group" role="list">
+          <li>
+            <button class="sign sign--menu" type="button" aria-expanded="false" aria-controls="rayons-menu" data-rayons-trigger>
+              <span class="sign__picto" data-icon="squares"></span>
+              <span class="sign__label" data-nav="0"></span>
+              <span class="sign__caret" data-icon="caret-down"></span>
+            </button>
+          </li>
+          <li>
+            <a class="sign" href="#bons-plans">
+              <span class="sign__picto" data-icon="tag"></span>
+              <span class="sign__label" data-nav="1"></span>
+              <span class="sign__arrow" data-icon="arrow-right"></span>
+            </a>
+          </li>
+          <li>
+            <a class="sign" href="#introuvables">
+              <span class="sign__picto" data-icon="binoculars"></span>
+              <span class="sign__label" data-nav="2"></span>
+              <span class="sign__arrow" data-icon="arrow-right"></span>
+            </a>
+          </li>
+        </ul>
+        <ul class="signbar__group signbar__group--end" role="list">
+          <li>
+            <a class="sign" href="../../#/orders">
+              <span class="sign__picto" data-icon="package"></span>
+              <span class="sign__label" data-nav="3"></span>
+            </a>
+          </li>
+          <li>
+            <a class="sign" href="../../#/seller/onboarding">
+              <span class="sign__picto" data-icon="storefront"></span>
+              <span class="sign__label">Devenir vendeur</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="rayons-menu" id="rayons-menu" hidden data-rayons-menu>
+        <div class="wrap rayons-menu__inner">
+          <div class="rayons-menu__head">
+            <p class="rayons-menu__title" id="rayons-menu-title">Tous les rayons</p>
+            <p class="rayons-menu__meta" data-rayons-meta></p>
+            <button class="icon-btn rayons-menu__close" type="button" data-rayons-close>
+              <span data-icon="x"></span><span class="sr-only">Fermer le menu des rayons</span>
+            </button>
+          </div>
+          <div class="rayons-menu__body">
+            <ul class="rayons-menu__list" role="list" aria-labelledby="rayons-menu-title" data-rayons-list></ul>
+            <div class="rayons-menu__panel" data-rayons-panel></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="slogan">
+      <div class="wrap hero__inner">
+        <div class="hero__top">
+          <p class="hero__info" data-hero-info>
+            <span class="hero__info-key">Arrivées</span>
+            <span class="hero__info-sep" aria-hidden="true">·</span>
+            <span class="hero__info-dest" data-hero-dest></span>
+            <span class="hero__info-sep" aria-hidden="true">·</span>
+            <span class="hero__clock">
+              <span class="hero__clock-board" aria-hidden="true">
+                <span class="flaps flaps--clock" data-flaps="clock-h"></span>
+                <span class="hero__clock-colon">:</span>
+                <span class="flaps flaps--clock" data-flaps="clock-m"></span>
+              </span>
+              <span class="sr-only" data-clock-sr></span>
+            </span>
+          </p>
+
+          <h1 class="slogan" id="slogan" data-slogan></h1>
+
+          <div class="hero__dest" data-dest-root>
+            <button class="dest-code" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="dest-menu-hero" data-dest-trigger>
+              <span class="dest-code__meta">
+                <span class="dest-code__label">Destination</span>
+                <span class="dest-code__name" data-dest-name></span>
+                <span class="dest-code__hint">Changer de pays <span data-icon="caret-down"></span></span>
+              </span>
+              <span class="flaps flaps--xl" data-flaps="dest-hero" aria-hidden="true"></span>
+            </button>
+            <div class="menu dest-menu dest-menu--hero" id="dest-menu-hero" role="menu" aria-label="Pays de livraison" hidden data-dest-menu></div>
+          </div>
+        </div>
+
+        <div class="hero__row">
+          <p class="hero__pitch" data-pitch></p>
+          <form class="hero-search" id="hero-search" role="search" action="../../" data-search-form>
+            <label class="hero-search__label" for="hero-q">Rechercher parmi les offres livrables <span class="hero-search__dest" data-dest-in></span></label>
+            <div class="hero-search__field">
+              <input class="hero-search__input" id="hero-q" name="q" type="search" placeholder="Parfum, casque, valise, rayon…" autocomplete="off" spellcheck="false" enterkeyhint="search" data-search-input>
+              <button class="hero-search__submit" type="submit"><span data-icon="search"></span><span>Rechercher</span></button>
+            </div>
+            <div class="shortcuts">
+              <p class="shortcuts__label" id="shortcuts-label">Accès direct</p>
+              <ul class="shortcuts__list" role="list" aria-labelledby="shortcuts-label" data-shortcuts></ul>
+            </div>
+          </form>
+        </div>
+
+        <div class="screens-wrap">
+          <div class="screens__head">
+            <h2 class="screens__title" id="screens-title" data-screens-title></h2>
+            <a class="screens__all" href="#arrivees" data-screens-all></a>
+          </div>
+          <ul class="screens" role="list" aria-labelledby="screens-title" data-screens></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reperes" aria-labelledby="reperes-title">
+      <div class="wrap">
+        <h2 class="sr-only" id="reperes-title">Repères pour acheter</h2>
+        <ol class="reperes__list" role="list" data-reperes></ol>
+      </div>
+    </section>
+
+    <section class="board" id="arrivees" aria-labelledby="board-title">
+      <div class="wrap">
+        <div class="board__head">
+          <h2 class="board__title" id="board-title">Arrivées</h2>
+          <div class="board__intro">
+            <p class="board__lede">Toutes les offres livrables <span data-dest-in></span>, comparées vendeur par vendeur.</p>
+            <p class="board__note">Délais et prix de démonstration. Une ligne par vendeur, même pour un produit identique.</p>
+          </div>
+          <div class="board__count">
+            <span class="flaps flaps--md" data-flaps="board-count" aria-hidden="true"></span>
+            <span class="board__count-label" data-board-count-label>offres</span>
+          </div>
+        </div>
+        <div class="board__controls">
+          <div class="segmented" role="group" aria-label="Filtrer le tableau des arrivées" data-filters></div>
+          <p class="board__sort">Tri : délai indicatif le plus court</p>
+        </div>
+        <div class="board__scroller">
+          <table class="arrivals" data-board-table>
+            <caption class="sr-only" data-board-caption></caption>
+            <colgroup>
+              <col class="col-visual"><col class="col-from"><col class="col-offer"><col class="col-vendor"><col class="col-delay"><col class="col-price"><col class="col-ship"><col class="col-status"><col class="col-action">
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="c-visual"><span class="sr-only">Visuel</span></th>
+                <th scope="col" class="c-from">Pays du vendeur</th>
+                <th scope="col" class="c-offer">Offre</th>
+                <th scope="col" class="c-vendor">Vendeur</th>
+                <th scope="col" class="c-delay">Délai indicatif</th>
+                <th scope="col" class="c-price">Prix</th>
+                <th scope="col" class="c-ship">Livraison</th>
+                <th scope="col" class="c-status">Statut</th>
+                <th scope="col" class="c-action"><span class="sr-only">Action</span></th>
+              </tr>
+            </thead>
+            <tbody data-board-body></tbody>
+          </table>
+        </div>
+        <div class="board__more">
+          <button class="btn btn--ghost-dark" type="button" aria-expanded="false" data-board-more></button>
+        </div>
+      </div>
+    </section>
+
+    <div class="duo">
+      <div class="wrap duo__grid" data-duo></div>
+    </div>
+
+    <section class="gates" id="rayons" aria-labelledby="gates-title">
+      <div class="wrap">
+        <div class="gates__head">
+          <h2 class="gates__title" id="gates-title">Tous les rayons</h2>
+          <p class="gates__meta" data-gates-meta></p>
+          <button class="link-btn gates__tree" type="button" data-open-rayons>Voir l’arborescence complète <span data-icon="arrow-right"></span></button>
+        </div>
+        <ul class="gates__grid" role="list" data-gates></ul>
+      </div>
+    </section>
+
+    <section class="quotes" aria-labelledby="quotes-title">
+      <div class="wrap">
+        <div class="quotes__head">
+          <h2 class="quotes__title" id="quotes-title"><span class="quotes__picto" data-icon="clipboard"></span>Sur devis</h2>
+          <p class="quotes__text">Les gros biens, voitures et maisons préfabriquées, passent par une demande de devis ou de réservation auprès du vendeur. Dans cette démonstration, aucun acompte ni réservation confirmée.</p>
+        </div>
+        <div class="quotes__list" data-quotes></div>
+        <a class="link-btn quotes__all" href="../../#/catalog?mode=quote" data-quotes-all></a>
+      </div>
+    </section>
+
+    <section class="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 class="how__title" id="how-title">Comment ça marche</h2>
+        <div class="how__track" data-how-track>
+          <svg class="how__arrow" aria-hidden="true" focusable="false" preserveAspectRatio="none" data-how-arrow>
+            <path class="how__arrow-line" data-how-line d=""></path>
+            <path class="how__arrow-head" data-how-head d=""></path>
+          </svg>
+          <ol class="how__steps" role="list" data-how-steps></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="sell" aria-labelledby="sell-title">
+      <div class="wrap sell__inner">
+        <span class="sell__picto" data-icon="storefront"></span>
+        <div class="sell__copy">
+          <h2 class="sell__title" id="sell-title">Vendez au-delà de votre pays</h2>
+          <p class="sell__text">Particuliers et entreprises, après vérification (KYC ou KYB).</p>
+        </div>
+        <a class="btn btn--black btn--lg" href="../../#/seller/onboarding">Devenir vendeur <span data-icon="arrow-right"></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 class="sr-only" id="footer-title">Pied de page</h2>
+      <div class="footer__top">
+        <a class="logo logo--footer" href="./" data-action="top" aria-label="DutyFreeDeal, revenir en haut de l’accueil">
+          <span class="logo__mark" data-icon="arrow-down-right"></span>
+          <span class="logo__word" aria-hidden="true">DutyFreeDeal</span>
+        </a>
+        <p class="footer__slogan" data-footer-slogan></p>
+      </div>
+      <div class="footer__cols">
+        <nav class="footer__col" aria-labelledby="f-buy">
+          <h3 class="footer__heading" id="f-buy">Acheter</h3>
+          <ul role="list" data-footer-buy></ul>
+        </nav>
+        <nav class="footer__col" aria-labelledby="f-sell">
+          <h3 class="footer__heading" id="f-sell">Vendre</h3>
+          <ul role="list">
+            <li><a href="../../#/seller/onboarding">Devenir vendeur</a></li>
+            <li><a href="../../#/seller">Espace vendeur (démo)</a></li>
+          </ul>
+        </nav>
+        <nav class="footer__col" aria-labelledby="f-demo">
+          <h3 class="footer__heading" id="f-demo">Maquette</h3>
+          <ul role="list">
+            <li><a href="../../">Refonte complète</a></li>
+            <li><a href="../../#/admin">Administration (démo)</a></li>
+            <li><a href="#sources" data-open-sources>Sources et licences</a></li>
+          </ul>
+        </nav>
+      </div>
+      <details class="sources" id="sources" data-sources>
+        <summary class="sources__summary"><span>Sources et licences</span><span class="sources__count" data-sources-count></span><span class="sources__caret" data-icon="caret-down"></span></summary>
+        <div class="sources__body">
+          <p class="sources__intro">Les photographies réelles illustrent des offres fictives : elles ne désignent pas des références commerciales proposées. Les visuels marqués « Illustration générée » ont été créés pour la maquette.</p>
+          <ul class="sources__list" role="list" data-sources-list></ul>
+        </div>
+      </details>
+      <p class="footer__demo"><span class="demo-band__tag">Démo</span> <span data-demo-notice></span></p>
+    </div>
+  </footer>
+
+  <div class="toast-zone" data-toast-zone>
+    <div class="toast" aria-hidden="true" data-toast hidden></div>
+  </div>
+  <p class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></p>
+</body>
+</html>

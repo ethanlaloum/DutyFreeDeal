@@ -1,0 +1,16 @@
+/* DutyFreeDeal Studio: about page, not-found and error pages. */
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.info-grid .card { display: grid; gap: 12px; align-content: start; }
+.info-grid .card + .card { margin-top: 0; }
+.info-grid p { color: var(--fg-2); }
+.info-page .section .card { margin-top: 20px; }
+.info-page .card .title-s { margin-bottom: 14px; }
+.table-link { display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 32%, transparent); }
+.table-link:hover { text-decoration-color: currentColor; }
+.table-link .icon { width: 12px; height: 12px; }
+.info-fonts { margin-top: 20px; }
+
+@media (max-width: 900px) {
+  .info-grid { grid-template-columns: 1fr; }
+}

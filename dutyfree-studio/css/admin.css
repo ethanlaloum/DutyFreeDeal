@@ -1,0 +1,326 @@
+/* DutyFreeDeal Studio: back office (overview, sellers and verification, offer moderation, orders and shipments,
+ * quotes and reservations, open decisions). Pages sit on the studio surface; their cards are light surfaces,
+ * so that inner fills, wells and thumbnails keep the soft studio backdrop of the shop. */
+
+/* ---------- Structure ---------- */
+
+.adm-section { margin-top: 88px; }
+.adm-section--first { margin-top: 8px; }
+.adm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.adm-head .btn, .adm-head .chip { flex: none; }
+.adm-sub { max-width: 64ch; margin-top: 8px; font-size: 15px; color: var(--fg-2); text-wrap: balance; }
+.adm-head .title-s + .adm-sub { margin-top: 4px; }
+.adm-after { margin-top: 20px; }
+.adm-after .notice > span { text-wrap: balance; }
+
+.adm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
+.adm-grid > .adm-wide { grid-column: 1 / -1; }
+.adm-grid .card + .card { margin-top: 0; }
+
+.adm-card { padding: 28px; }
+.adm-card .card-head { margin-bottom: 12px; }
+.adm-card--table { padding: 6px 28px 10px; }
+.adm-text { font-size: 15px; color: var(--fg-2); text-wrap: pretty; }
+.adm-kicker { font-size: 13px; color: var(--fg-2); }
+.adm-note { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--fg-2); }
+.adm-note .icon { width: 15px; height: 15px; margin-top: 2px; color: var(--fg); }
+.adm-note > span { text-wrap: balance; }
+.adm-empty { padding: 56px 24px; }
+.adm-empty .title-s { margin-top: 4px; }
+
+/* Square icon tile: the applicant's kind (individual or business), where there is no product to show. */
+.adm-tile { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--fill); color: var(--fg); }
+.adm-tile .icon { width: 20px; height: 20px; }
+
+/* Studio thumbnails side by side: the products of an order or a seller, never covering each other. */
+.adm-items { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; }
+.adm-stack { display: inline-flex; align-items: center; gap: 6px; }
+.adm-stack-more {
+  display: grid;
+  place-items: center;
+  min-width: 40px; height: 40px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--fill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.adm-status { display: inline-flex; border-radius: 999px; }
+.adm-status:focus-visible { outline-offset: 2px; }
+.adm-chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- Seller applications ---------- */
+
+/* Names and emails are typed by the visitor: a long unbroken one wraps instead of widening the card or the page. */
+.adm-apps { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.adm-apps .card + .card { margin-top: 0; }
+.adm-app { padding: 24px 28px; }
+.adm-app-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.adm-app-who { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.adm-app-who > div { min-width: 0; }
+.adm-app-name { font-size: 18px; font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+.adm-app .adm-kicker { overflow-wrap: anywhere; }
+.adm-app-bottom { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.adm-app-facts { display: flex; flex-wrap: wrap; gap: 12px 44px; }
+.adm-app-facts dt { font-size: 12px; font-weight: 500; color: var(--fg-2); }
+.adm-app-facts dd { margin-top: 3px; font-size: 15px; font-weight: 500; letter-spacing: -0.005em; white-space: nowrap; }
+.adm-app-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Tables ---------- */
+
+/* The scroll container clips outlines: its 6 px inline padding (taken back by the negative margin) leaves room
+ * for the focus ring of the links and buttons of the first and last columns. */
+.adm-card .table-wrap { padding-inline: 6px; margin-inline: -6px; }
+.adm-table { min-width: 680px; }
+.adm-table thead th { padding-top: 20px; }
+.adm-table tbody th, .adm-table td { padding-top: 18px; padding-bottom: 18px; vertical-align: middle; }
+.adm-table th, .adm-table td { padding-left: 12px; padding-right: 12px; }
+.adm-table tbody th {
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--fg);
+  white-space: normal;
+}
+.adm-table tbody tr:last-child > * { border-bottom: 0; }
+.adm-table .cell-sub { margin-top: 2px; font-size: 13px; }
+.adm-table .adm-th-actions { text-align: right; }
+.adm-cell-title { display: block; font-size: 15px; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; color: var(--fg); }
+.adm-row-link { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color 0.4s var(--ease); }
+.adm-row-link:hover { text-decoration-color: currentColor; }
+.adm-table .cell-actions { flex-wrap: nowrap; }
+/* Seller accounts: every cell stays on one line (two-line rhythm per row); a slightly tighter gutter keeps the widest
+ * row ("Suspended · simulation", "Reactivate") inside the card at 1280. */
+.adm-sellers th, .adm-sellers td { padding-left: 10px; padding-right: 10px; }
+.adm-nowrap { white-space: nowrap; }
+/* Names typed by visitors (customer, created offer): an unbroken one wraps instead of widening the table; the
+ * minimum width keeps ordinary names from breaking inside a word when the table is narrow. */
+.adm-wrap { min-width: 8em; overflow-wrap: anywhere; }
+.adm-price { font-size: 15px; }
+.adm-total { font-size: 15px; }
+
+/* ---------- Overview ---------- */
+
+.adm-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-bottom: 0; }
+
+/* "Awaiting a decision": the latest item of each queue on its studio visual; the counts stay in the stat row. */
+.adm-attention { display: flex; flex-direction: column; }
+.adm-queue { flex: 1; display: grid; grid-auto-rows: 1fr; }
+.adm-queue > li { display: flex; }
+.adm-queue > li + li { border-top: 1px solid var(--line); }
+.adm-queue-item { flex: 1; display: grid; grid-template-columns: 88px minmax(0, 1fr); align-items: center; gap: 20px; padding: 18px 0; border-radius: var(--radius-m); }
+.adm-queue-item .thumb img:not(.cover) { transition: transform 0.6s var(--ease); }
+.adm-queue-item:hover .thumb img:not(.cover) { transform: translate(-50%, calc(-50% - 4px)); }
+.adm-queue-icon { display: grid; place-items: center; color: var(--fg-2); }
+.adm-queue-icon .icon { width: 28px; height: 28px; }
+.adm-queue-text { display: grid; justify-items: start; min-width: 0; }
+.adm-queue-kicker { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--fg-2); transition: color 0.4s var(--ease); }
+.adm-queue-kicker .icon { width: 12px; height: 12px; }
+.adm-queue-item:hover .adm-queue-kicker { color: var(--fg); }
+.adm-queue-name {
+  margin-top: 4px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+  transition: text-decoration-color 0.4s var(--ease);
+}
+.adm-queue-item:hover .adm-queue-name { text-decoration-color: currentColor; }
+.adm-queue-sub { margin-top: 2px; font-size: 13px; color: var(--fg-2); text-wrap: pretty; overflow-wrap: anywhere; }
+.adm-queue-kicker + .adm-queue-sub { margin-top: 4px; font-size: 15px; }
+
+.adm-definition { display: flex; flex-direction: column; }
+.adm-definition .card-head .chip { flex: none; }
+/* Two halves of the card; the first one never narrower than its longest label, so every label stays on one line at 1280. */
+.adm-decisions { display: grid; grid-template-columns: minmax(max-content, 1fr) minmax(0, 1fr); gap: 12px 24px; margin: 22px 0 26px; }
+.adm-decisions li { display: flex; align-items: baseline; gap: 12px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+.adm-num { flex: none; font-size: 12px; font-weight: 600; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.adm-definition .more { margin-top: auto; align-self: flex-start; }
+
+/* Latest orders, before any order: a quiet line rather than a large empty block. */
+.adm-quiet { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 4px 0 2px; }
+.adm-quiet p { max-width: 62ch; font-size: 15px; color: var(--fg-2); text-wrap: pretty; }
+.adm-quiet .btn { flex: none; }
+
+.adm-dest { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: center; }
+.adm-dest-intro { display: grid; gap: 10px; align-content: start; }
+.adm-dest-intro .adm-note { margin-top: 6px; }
+.adm-bars { display: grid; gap: 18px; }
+.adm-bars li { display: grid; grid-template-columns: 112px minmax(0, 1fr) 168px; align-items: center; gap: 18px; font-size: 14px; }
+.adm-bar-name { font-weight: 500; }
+.adm-bar-track { display: block; height: 6px; border-radius: 999px; background: var(--fill-2); }
+.adm-bar-fill { display: block; width: var(--w); height: 100%; border-radius: 999px; background: var(--fg); }
+.adm-bar-value { color: var(--fg-2); white-space: nowrap; }
+.adm-bar-value strong { font-weight: 600; color: var(--fg); }
+
+/* ---------- Offer moderation ---------- */
+
+.adm-toolbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 24px; margin-bottom: 20px; }
+.adm-search-field { flex: 0 1 420px; }
+.adm-search { position: relative; }
+.adm-search .icon { position: absolute; left: 16px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--fg-2); pointer-events: none; }
+.adm-search .input { height: 44px; padding-left: 42px; border-radius: 999px; }
+.adm-seg { min-width: 0; margin: 0; padding: 0; border: 0; }
+.adm-seg legend { margin-bottom: 6px; padding: 0; font-size: 13px; font-weight: 500; color: var(--fg-2); }
+.adm-seg-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.adm-seg-option { position: relative; display: block; cursor: pointer; }
+.adm-seg-option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.adm-seg-option > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--raised);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.adm-seg-option small { font-size: 12px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.adm-seg-option:hover > span { border-color: var(--fg); }
+/* Checked: the inverted pill of the home page's seller-country filter. */
+.adm-seg-option input:checked + span { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.adm-seg-option input:checked + span small { color: var(--line-strong); }
+.adm-seg-option input:focus-visible + span { outline: 2px solid var(--ring); outline-offset: 3px; }
+.adm-count { margin-left: auto; padding-bottom: 12px; font-size: 13px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+
+.adm-table .adm-group-row th {
+  padding: 30px 0 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  text-align: left;
+}
+.adm-group-count { margin-left: 10px; font-weight: 400; color: var(--fg-2); }
+.adm-table.adm-offers tbody:first-of-type .adm-group-row th { padding-top: 22px; }
+/* Offers kept out of the shop (hidden, or seller suspended): their picture steps back, the chips say why. */
+.adm-offers tr:not([data-status='published']) .thumb img { opacity: 0.4; }
+.adm-table.adm-offers [data-adm-row] > * { padding-top: 14px; padding-bottom: 14px; }
+.adm-offers .cell-sub + .cell-sub, .adm-chips + .cell-sub { margin-top: 4px; }
+.adm-nomatch { display: grid; justify-items: center; gap: 14px; padding: 56px 0 50px; text-align: center; color: var(--fg-2); }
+
+/* ---------- Orders and shipments ---------- */
+
+.adm-orders, .adm-requests { display: grid; gap: 20px; }
+.adm-order-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.adm-order-id { margin-top: 4px; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+/* The order heading only receives focus to announce the order reached from the overview, like a page title. */
+.adm-order-id:focus { outline: none; }
+.adm-order-total { text-align: right; }
+.adm-order-total .price { font-size: 28px; line-height: 1.1; letter-spacing: -0.025em; }
+.adm-order-total .adm-kicker { margin-top: 6px; }
+
+.adm-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px 24px; margin-top: 24px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.adm-facts dt { font-size: 12px; font-weight: 500; color: var(--fg-2); }
+.adm-facts dd { margin-top: 4px; font-size: 15px; font-weight: 500; letter-spacing: -0.005em; overflow-wrap: anywhere; }
+.adm-facts dd > span { display: block; margin-top: 1px; font-size: 13px; font-weight: 400; color: var(--fg-2); }
+.adm-facts--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.adm-facts-wide { grid-column: 1 / -1; }
+.adm-facts .adm-details { max-width: 72ch; font-weight: 400; white-space: pre-line; }
+
+/* One shipment per seller: who and where it stands on the left (as on My orders), its progress and items on the right. */
+.adm-ship { display: grid; grid-template-columns: 240px minmax(0, 1fr); column-gap: 40px; align-items: start; padding: 28px 0 4px; }
+.adm-ship + .adm-ship { margin-top: 24px; border-top: 1px solid var(--line); }
+.adm-ship-side { display: grid; justify-items: start; align-content: start; gap: 2px; }
+.adm-ship-side .chip { margin-top: 14px; }
+.adm-ship-side .btn, .adm-ship-end { margin-top: 12px; }
+.adm-ship-title { font-size: 18px; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; }
+.adm-ship-title:focus-visible { outline-offset: 4px; border-radius: 4px; }
+.adm-ship-end { font-size: 13px; color: var(--fg-2); }
+/* The shipment tracker is the shared one (shipmentSteps, css/foundation.css). */
+.adm-ship-main { min-width: 0; }
+
+.adm-lines { display: grid; gap: 14px; margin-top: 26px; }
+.adm-line { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 16px; font-size: 15px; }
+.adm-line .price { font-size: 15px; }
+.adm-line .adm-cell-title { overflow-wrap: anywhere; }
+.adm-ship-fee { display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--fg-2); }
+.adm-ship-fee .price { font-weight: 500; color: var(--fg); white-space: nowrap; }
+
+/* ---------- Quotes and reservations ---------- */
+
+.adm-request { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 36px; align-items: stretch; }
+/* The studio well runs the full height of the card, whatever the length of the project details; the caption
+ * under it is the one of the offer page. */
+.adm-request-figure { display: flex; flex-direction: column; min-width: 0; }
+.offer-media.adm-request-media { flex: 1 1 auto; aspect-ratio: auto; min-height: 280px; }
+.adm-request-figure figcaption { margin-top: 14px; font-size: 13px; color: var(--fg-2); text-wrap: balance; }
+.adm-request-media img:not(.cover) { max-width: 78%; max-height: 56%; bottom: 22%; }
+.adm-request-media[data-cut]::after { left: 20%; right: 20%; bottom: calc(22% - 7px); }
+.adm-request-body { min-width: 0; padding-top: 4px; }
+.adm-request-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.adm-request-title { margin-top: 6px; font-size: 24px; letter-spacing: -0.02em; }
+.adm-request-side { display: grid; justify-items: end; gap: 8px; flex: none; }
+.adm-request-id { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.adm-request-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.adm-request-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-top: 10px; }
+.adm-request-price .price { font-size: 20px; letter-spacing: -0.015em; }
+.adm-request-foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 18px; }
+.adm-request-foot .btn { flex: none; }
+
+/* ---------- Open decisions ---------- */
+
+.adm-agreed-card { padding: 8px 28px; }
+.adm-agreed { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+.adm-agreed > div { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: start; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+.adm-agreed > div:nth-child(-n + 2) { border-top: 0; }
+.adm-agreed dt { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.adm-agreed dt .icon { width: 18px; height: 18px; }
+.adm-agreed dd { font-size: 15px; color: var(--fg-2); text-wrap: pretty; }
+
+.adm-open { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.adm-open .card + .card { margin-top: 0; }
+.adm-decision { display: grid; gap: 10px; align-content: start; }
+.adm-decision-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.adm-decision .adm-num { font-size: 13px; }
+
+.adm-reset { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.adm-reset .adm-text { max-width: 62ch; margin-top: 8px; }
+.adm-reset .btn { flex: none; }
+.adm-dialog-text { color: var(--fg-2); font-size: 15px; text-wrap: pretty; }
+.adm-dialog-text + .adm-dialog-text { margin-top: 10px; text-wrap: balance; }
+
+/* ---------- Narrow screens (structure only) ---------- */
+
+@media (max-width: 1100px) {
+  .adm-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adm-grid, .adm-open { grid-template-columns: minmax(0, 1fr); }
+  .adm-dest { grid-template-columns: 1fr; gap: 28px; }
+  .adm-agreed { grid-template-columns: 1fr; }
+  .adm-agreed > div:nth-child(2) { border-top: 1px solid var(--line); }
+  .adm-request { grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
+  .adm-ship { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+}
+@media (max-width: 900px) {
+  .adm-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .adm-head, .adm-reset, .adm-order-head, .adm-request-head, .adm-request-foot, .adm-app-top, .adm-quiet { flex-direction: column; align-items: flex-start; }
+  .adm-order-total { text-align: left; }
+  .adm-decisions { grid-template-columns: 1fr; }
+  .adm-bars li { grid-template-columns: 1fr auto; gap: 6px 12px; }
+  .adm-bar-track { grid-column: 1 / -1; grid-row: 2; }
+  .adm-request { grid-template-columns: 1fr; padding: 20px; }
+  .adm-request-side { justify-items: start; }
+  .offer-media.adm-request-media { aspect-ratio: 4 / 3; min-height: 0; }
+  .adm-agreed > div { grid-template-columns: 1fr; gap: 4px; }
+  .adm-facts--2 { grid-template-columns: 1fr; }
+  .adm-search-field { flex-basis: 100%; }
+  .adm-count { margin-left: 0; padding-bottom: 0; }
+  .adm-card { padding: 20px; }
+  .adm-card--table { padding: 4px 20px 8px; }
+  .adm-queue-item { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; }
+  .adm-queue-item .thumb--xl { width: 64px; height: 64px; border-radius: 14px; }
+}

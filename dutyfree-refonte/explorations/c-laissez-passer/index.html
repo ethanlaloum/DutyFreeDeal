@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#5A1123">
+  <title>DutyFreeDeal · Laissez-passer (exploration C)</title>
+  <meta name="description" content="Exploration de direction artistique C, « Laissez-passer » : accueil interactif de DutyFreeDeal. Catalogue de démonstration, offres et vendeurs fictifs.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>try { if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) document.documentElement.classList.add('motion-ok'); } catch (e) { /* sans effet */ }</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <div class="demo-band">
+    <p><span data-bind="demo"></span> <a href="#sources">Sources et licences</a></p>
+  </div>
+  <div id="top-sentinel" class="sentinel" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="masthead__bar">
+      <a class="logo" href="#main" data-home aria-label="DutyFreeDeal, retour en haut de l’accueil">
+        <span class="logo__rosace" data-rosace="logo" aria-hidden="true"></span>
+        <span class="logo__word" aria-hidden="true">DutyFree<i>Deal</i></span>
+      </a>
+
+      <form class="hsearch" id="hsearch" role="search" data-search aria-label="Recherche d’en-tête">
+        <label class="sr-only" for="hsearch-input">Rechercher parmi les offres livrables <span data-dest-in></span></label>
+        <svg class="icon hsearch__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+        <input id="hsearch-input" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="Parfum, casque, valise, rayon…">
+        <button type="submit" class="hsearch__go">Rechercher</button>
+      </form>
+
+      <div class="tools">
+        <div class="dest">
+          <button type="button" class="dest__btn" id="dest-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="dest-list">
+            <span class="dest__k">Livraison · <span data-dest-iso></span></span>
+            <span class="dest__v"><span data-dest-name></span><svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+          </button>
+          <ul class="dest__list" id="dest-list" role="listbox" tabindex="-1" aria-label="Pays de livraison" hidden></ul>
+        </div>
+        <div class="lang" role="group" aria-label="Langue">
+          <button type="button" aria-pressed="true" lang="fr">FR</button><span aria-hidden="true">|</span><button type="button" aria-pressed="false" lang="en">EN</button>
+        </div>
+        <a class="tool" id="fav-link" href="../../#/wishlist">
+          <svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg>
+          <span class="tool__label">Favoris</span><span class="tool__count" data-fav-count>0</span>
+        </a>
+        <button type="button" class="tool tool--cart" id="cart-link" aria-haspopup="dialog" aria-expanded="false" aria-controls="cart-panel">
+          <svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M236,69.4A16.13,16.13,0,0,0,223.92,64H176a48,48,0,0,0-96,0H32.08a16.13,16.13,0,0,0-12,5.4,16,16,0,0,0-3.92,12.48l14.26,120a16,16,0,0,0,16,14.12H209.67a16,16,0,0,0,16-14.12l14.26-120A16,16,0,0,0,236,69.4ZM128,32a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm81.76,168a.13.13,0,0,1-.09,0H46.25L32.08,80H224Z"/></svg>
+          <span class="tool__label">Panier</span><span class="tool__count tool__count--cart" data-cart-count>0</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="masthead__nav" aria-label="Navigation principale">
+      <ul class="nav">
+        <li><button type="button" class="nav__rayons" id="rayons-btn" aria-expanded="false" aria-controls="sommaire"><span data-nav="0">Tous les rayons</span><svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button></li>
+        <li><a href="#bons-plans" data-nav="1">Bons plans</a></li>
+        <li><a href="#introuvables" data-nav="2">Introuvables</a></li>
+        <li><a href="../../#/orders" data-nav="3">Mes commandes</a></li>
+        <li><a href="../../#/sell">Devenir vendeur</a></li>
+      </ul>
+      <div class="microtext nav__micro" aria-hidden="true"></div>
+    </nav>
+
+    <div class="sommaire" id="sommaire" role="region" aria-label="Tous les rayons" hidden>
+      <div class="sommaire__page">
+        <div class="sommaire__head">
+          <p class="sommaire__eyebrow">Sommaire · <span data-nav="0">Tous les rayons</span></p>
+          <button type="button" class="sommaire__close" id="sommaire-close" aria-label="Fermer le sommaire des rayons"><svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button>
+        </div>
+        <div class="sommaire__body">
+          <div class="sommaire__tabs" id="sommaire-tabs" role="tablist" aria-orientation="vertical" aria-label="Rayons"></div>
+          <div class="sommaire__panel" id="sommaire-panel" role="tabpanel" tabindex="-1"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cart__panel" id="cart-panel" role="dialog" aria-modal="false" aria-labelledby="cart-title" hidden>
+      <span class="cart__band" aria-hidden="true"></span>
+      <div class="cart__head">
+        <h2 class="cart__title" id="cart-title" tabindex="-1">Panier</h2>
+        <p class="cart__meta" id="cart-meta"></p>
+        <button type="button" class="cart__close" id="cart-close" aria-label="Fermer le panier"><svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button>
+      </div>
+      <div class="cart__body" id="cart-body"></div>
+      <div class="cart__foot" id="cart-foot"></div>
+    </div>
+    <div class="masthead__rule" aria-hidden="true"></div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="passport" aria-labelledby="slogan">
+      <div class="passport__stage">
+        <div class="cover">
+          <div class="cover__rosace" data-rosace="cover" aria-hidden="true"></div>
+          <div class="cover__frame" aria-hidden="true"></div>
+          <div class="cover__content">
+            <h1 class="slogan" id="slogan"></h1>
+            <p class="cover__pitch" data-bind="pitch"></p>
+            <form class="msearch" id="msearch" role="search" data-search aria-label="Recherche principale">
+              <label class="msearch__label" for="msearch-input">Rechercher parmi les offres livrables <span data-dest-in></span></label>
+              <div class="msearch__field">
+                <svg class="icon msearch__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+                <input id="msearch-input" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="Parfum, casque, valise, rayon…">
+                <button type="submit" class="btn btn--action msearch__go">Rechercher</button>
+              </div>
+            </form>
+            <div class="mrz cover__mrz" data-mrz aria-hidden="true"><span class="mrz__line"></span><span class="mrz__line"></span></div>
+          </div>
+          <div class="cover__shade" aria-hidden="true"></div>
+        </div>
+
+        <div class="under">
+          <div class="under__head">
+            <p class="eyebrow">Vitrine · <span data-dest-name></span></p>
+            <h2 class="under__title" id="vitrine-title"></h2>
+            <p class="under__text">Chaque offre indique le pays de son vendeur et son prix. La livraison <span data-dest-in></span> s’affiche à part, sur sa propre ligne.</p>
+          </div>
+          <ol class="fan" aria-labelledby="vitrine-title">
+            <li class="visa"></li>
+            <li class="visa"></li>
+            <li class="visa"></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="reperes" aria-labelledby="reperes-title">
+      <div class="reperes__sheet">
+        <h2 class="eyebrow reperes__title" id="reperes-title">Repères</h2>
+        <span class="filet" aria-hidden="true" style="--ink-c: var(--violet)"></span>
+        <ol class="reperes__list" id="reperes-list"></ol>
+      </div>
+    </section>
+
+    <div class="spread" id="selections">
+      <div class="spread__book">
+        <section class="leaf leaf--left" id="bons-plans" data-leaf="deals" aria-labelledby="deals-title" style="--ink-c: var(--teal)">
+          <span class="leaf__band" aria-hidden="true"></span>
+          <p class="eyebrow">Sélection · <span data-dest-name></span></p>
+          <h2 class="leaf__title" id="deals-title" data-col-name="deals"></h2>
+          <p class="leaf__text" data-col-text="deals"></p>
+          <ul class="leaf__list"></ul>
+          <a class="leaf__more" href="../../#/catalog?collection=deals"></a>
+          <div class="leaf__foot" aria-hidden="true"><span class="microtext"></span><span class="leaf__no">4</span></div>
+        </section>
+        <section class="leaf leaf--right" id="introuvables" data-leaf="rare" aria-labelledby="rare-title" style="--ink-c: var(--violet)">
+          <span class="leaf__band" aria-hidden="true"></span>
+          <p class="eyebrow">Sélection · <span data-dest-name></span></p>
+          <h2 class="leaf__title" id="rare-title" data-col-name="rare"></h2>
+          <p class="leaf__text" data-col-text="rare"></p>
+          <ul class="leaf__list"></ul>
+          <a class="leaf__more" href="../../#/catalog?collection=rare"></a>
+          <div class="leaf__foot" aria-hidden="true"><span class="leaf__no">5</span><span class="microtext"></span></div>
+        </section>
+        <span class="spread__binding" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <section class="album" id="offres" aria-labelledby="album-title">
+      <div class="album__head">
+        <span class="filet" aria-hidden="true" style="--ink-c: var(--teal)"></span>
+        <p class="eyebrow">Planche · Toutes les offres</p>
+        <h2 class="section-title" id="album-title">Toutes les offres livrables <span data-dest-in></span></h2>
+        <p class="album__lead" id="album-lead"></p>
+        <div class="filters" id="album-filters">
+          <div class="filters__group" role="group" aria-label="Sélection"><span class="filters__label" aria-hidden="true">Sélection</span><div class="filters__chips" id="filter-col"></div></div>
+          <div class="filters__group" role="group" aria-label="Pays du vendeur"><span class="filters__label" aria-hidden="true">Pays du vendeur</span><div class="filters__chips" id="filter-country"></div></div>
+        </div>
+      </div>
+      <ul class="album__grid" id="album-grid"></ul>
+      <p class="album__empty" id="album-empty" hidden>Aucune offre de démonstration ne correspond à ces filtres.</p>
+      <div class="album__foot">
+        <p class="album__shown" id="album-shown"></p>
+        <button type="button" class="btn btn--ink album__more" id="album-more" aria-controls="album-grid" aria-expanded="false" hidden><span>Afficher toutes les offres</span><svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></button>
+      </div>
+    </section>
+
+    <section class="rayons" id="rayons" aria-labelledby="rayons-title">
+      <div class="rayons__head">
+        <span class="filet" aria-hidden="true" style="--ink-c: var(--ultramarine)"></span>
+        <p class="eyebrow">Visas · Rayons</p>
+        <h2 class="section-title" id="rayons-title">Les <span id="rayons-count"></span> rayons</h2>
+        <p class="rayons__lead">Chaque rayon couvre ses biens principaux et leurs accessoires. Cette arborescence est celle du catalogue de démonstration.</p>
+      </div>
+      <ul class="rayons__grid" id="rayons-grid"></ul>
+    </section>
+
+    <section class="biens" id="gros-biens" aria-labelledby="biens-title">
+      <div class="biens__rosace" data-rosace="back" aria-hidden="true"></div>
+      <div class="biens__head">
+        <p class="eyebrow eyebrow--light">Sur demande</p>
+        <h2 class="section-title" id="biens-title">Gros biens sur demande</h2>
+        <p class="biens__lead">Voitures et maisons préfabriquées passent par une demande de devis ou de réservation, sans paiement. Aucun acompte ni réservation confirmée dans cette démonstration.</p>
+      </div>
+      <div class="biens__grid" id="biens-grid"></div>
+    </section>
+
+    <section class="vendre" id="vendeur" aria-labelledby="vendre-title">
+      <div class="seal" aria-hidden="true">
+        <div class="seal__holo"><span class="seal__hue"></span></div>
+        <div class="seal__engrave" id="seal-engrave"></div>
+      </div>
+      <div class="vendre__text">
+        <p class="eyebrow">Vendeurs · Particuliers et entreprises</p>
+        <h2 class="section-title" id="vendre-title">Vendez au-delà de votre pays.</h2>
+        <p class="vendre__lead">Particuliers et entreprises, après une vérification adaptée au pays du vendeur. Procédure simulée dans la maquette.</p>
+        <p class="vendre__kyc">KYC pour les particuliers · KYB pour les entreprises</p>
+        <a class="btn btn--action btn--large" href="../../#/sell">Devenir vendeur <svg class="icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="backcover">
+    <div class="backcover__rosace" data-rosace="back" aria-hidden="true"></div>
+    <div class="backcover__grid">
+      <div class="backcover__brand">
+        <a class="logo logo--light" href="#main" data-home aria-label="DutyFreeDeal, retour en haut de l’accueil">
+          <span class="logo__rosace" data-rosace="logo" aria-hidden="true"></span>
+          <span class="logo__word" aria-hidden="true">DutyFree<i>Deal</i></span>
+        </a>
+        <p class="backcover__demo" data-bind="demo"></p>
+      </div>
+      <nav class="backcover__col" aria-labelledby="foot-buy">
+        <h2 class="backcover__h" id="foot-buy">Acheter</h2>
+        <ul>
+          <li><a href="../../#/categories" data-nav="0">Tous les rayons</a></li>
+          <li><a href="../../#/catalog?collection=deals" data-nav="1">Bons plans</a></li>
+          <li><a href="../../#/catalog?collection=rare" data-nav="2">Introuvables</a></li>
+          <li><a href="../../#/wishlist">Favoris</a></li>
+          <li><button type="button" class="linkish" data-open-cart>Panier</button></li>
+          <li><a href="../../#/orders" data-nav="3">Mes commandes</a></li>
+        </ul>
+      </nav>
+      <nav class="backcover__col" aria-labelledby="foot-sell">
+        <h2 class="backcover__h" id="foot-sell">Vendre</h2>
+        <ul>
+          <li><a href="../../#/sell">Devenir vendeur</a></li>
+          <li><a href="#vendeur">Vérification des vendeurs</a></li>
+        </ul>
+      </nav>
+      <nav class="backcover__col" aria-labelledby="foot-demo">
+        <h2 class="backcover__h" id="foot-demo">Maquette</h2>
+        <ul>
+          <li><a href="../../">Refonte de la maquette</a></li>
+          <li><a href="#sources">Sources et licences</a></li>
+        </ul>
+      </nav>
+    </div>
+    <details class="sources" id="sources">
+      <summary>Sources et licences <span class="sources__n">(<span id="credits-count"></span>)</span></summary>
+      <ul class="sources__list" id="credits-list"></ul>
+    </details>
+    <div class="mrz backcover__mrz" data-mrz aria-hidden="true"><span class="mrz__line"></span><span class="mrz__line"></span></div>
+  </footer>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="live" aria-live="polite" aria-atomic="true"></div>
+  <svg class="ink-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs id="ink-defs"></defs></svg>
+
+  <script src="../shared/catalog.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

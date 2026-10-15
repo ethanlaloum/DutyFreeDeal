@@ -1,0 +1,291 @@
+/* DutyFreeDeal Studio: purchase pages (cart, checkout, orders). One cart and one payment, one shipment per seller.
+ * Groups are sections that open on a hairline, as on the home page; the summary is the only floating object. */
+
+/* ---------- Shared ---------- */
+
+.pur-page { padding-bottom: 136px; }
+.pur-page .page-head .lead { max-width: 54ch; text-wrap: balance; }
+
+.pur-layout { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 64px; align-items: start; }
+.pur-main { display: grid; gap: 56px; min-width: 0; }
+/* The summary is never cut or scrolled inside itself. When it fits on screen it stays under the header; a taller one
+ * (a long order) scrolls with the page, then stays with its end in view: totals and fine print are never hidden.
+ * --pur-sum-h is the summary's height, measured by the page (purchase.js, fitSummary). */
+.pur-aside {
+  position: sticky;
+  top: min(calc(var(--header-h) + 24px), calc(100vh - var(--pur-sum-h, 0px) - 24px));
+  min-width: 0;
+}
+
+.pur-dest { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--fg); }
+.pur-dest .icon { width: 16px; height: 16px; }
+
+/* Head of the cart: where the parts come from and where they go. */
+.pur-route { display: grid; justify-items: end; gap: 10px; padding-bottom: 4px; text-align: right; }
+.pur-route-from { font-size: 14px; color: var(--fg-2); }
+.pur-route-to { display: flex; align-items: center; gap: 14px; font-size: 15px; }
+
+/* "Shipment 1 of 3": a quiet kicker; pills are kept for actions and statuses. */
+.pur-tag { font-size: 13px; color: var(--fg-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.pur-seller-name { font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; }
+.pur-seller-sub { margin-top: 2px; font-size: 13px; color: var(--fg-2); }
+
+/* Delivery of one seller, always on its own line. */
+.pur-ship { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--fg-2); }
+.pur-ship .icon { width: 18px; height: 18px; color: var(--fg); }
+.pur-ship .price { margin-left: auto; padding-left: 16px; font-weight: 500; color: var(--fg); white-space: nowrap; }
+
+/* Floating summary, the same object as the example cart of the home page. */
+.pur-summary { padding: 28px; border-radius: var(--radius); background: var(--raised); box-shadow: var(--shadow); }
+.pur-summary-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.pur-summary-head + .pur-totals { margin-top: 22px; }
+
+.pur-totals { display: grid; gap: 10px; font-size: 15px; color: var(--fg-2); }
+.pur-totals > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.pur-totals dd { color: var(--fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pur-totals .pur-grand { margin-top: 6px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+
+.pur-one { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; color: var(--fg-2); text-wrap: pretty; }
+.pur-one strong { display: block; margin-bottom: 2px; font-size: 15px; font-weight: 600; color: var(--fg); }
+.pur-cta { height: 54px; margin-top: 22px; font-size: 16px; }
+.pur-cta .icon { width: 16px; height: 16px; }
+/* Unavailable action: the dashed outline of the family ("Not deliverable" on offer cards), never a faded slab. */
+.pur-cta[aria-disabled='true'],
+.pur-cta[aria-disabled='true']:hover { opacity: 1; background: none; color: var(--fg-2); border: 1px dashed var(--line-strong); cursor: default; }
+.pur-fine { margin-top: 14px; font-size: 12.5px; color: var(--fg-2); text-align: center; text-wrap: balance; }
+.pur-blocked { display: flex; gap: 8px; align-items: flex-start; margin-top: 20px; font-size: 13px; color: var(--fg); text-wrap: pretty; }
+.pur-blocked .icon { width: 16px; height: 16px; margin-top: 1px; }
+
+/* ---------- Cart ---------- */
+
+/* One section per seller, opened by a hairline: no box, the products carry the page. */
+.pur-seller { border-top: 1px solid var(--line-strong); }
+.pur-seller-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 0 22px; border-bottom: 1px solid var(--line); }
+.pur-seller-head .pur-tag { padding-top: 5px; }
+
+.pur-lines > li + li { border-top: 1px solid var(--line); }
+.pur-line { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; gap: 24px; padding: 24px 0; }
+.offer-media.pur-media { width: 128px; height: 128px; border-radius: 16px; }
+.pur-media img:not(.cover) { transition: transform 0.6s var(--ease); }
+.pur-line:hover .pur-media img:not(.cover) { transform: translate(-50%, -4px); }
+.pur-line-info { min-width: 0; padding-top: 4px; }
+.pur-line-name { font-size: 17px; font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; }
+.pur-line-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pur-line-sub { margin-top: 4px; font-size: 13px; color: var(--fg-2); }
+.pur-line-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 18px; }
+.pur-line-amount { padding-top: 4px; text-align: right; }
+.pur-line-amount .price { font-size: 17px; }
+.pur-line[data-issue] .pur-line-amount .price { color: var(--fg-2); }
+.pur-each { margin-top: 2px; font-size: 13px; color: var(--fg-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Quantity: one pill holding minus, count and plus. */
+.qty.pur-qty { height: 36px; margin: 0; padding: 0 3px; gap: 0; border: 1px solid var(--line-strong); border-radius: 999px; }
+.pur-qty button { width: 30px; height: 30px; border: 0; color: var(--fg); transition: background-color 0.3s var(--ease); }
+.pur-qty button:hover { background: var(--fill-2); }
+.pur-qty button:focus-visible { outline-offset: 1px; }
+.pur-qty button[aria-disabled='true'] { color: var(--fg-2); background: none; opacity: 0.45; cursor: not-allowed; }
+.pur-qty button .icon { width: 14px; height: 14px; }
+.pur-qty output { min-width: 28px; font-size: 15px; font-weight: 500; }
+.pur-remove { gap: 6px; padding: 0 12px; }
+.pur-remove .icon { width: 15px; height: 15px; }
+.pur-max { font-size: 13px; color: var(--fg-2); }
+
+.chip.pur-issue { display: inline-flex; gap: 6px; height: auto; min-height: 26px; margin-top: 14px; padding: 4px 11px; white-space: normal; line-height: 1.35; }
+.pur-issue .icon { width: 14px; height: 14px; }
+
+.pur-seller > .pur-ship { padding-top: 18px; border-top: 1px solid var(--line); }
+
+/* Empty cart: suggestions below the heading. */
+.pur-suggest { padding-top: 40px; border-top: 1px solid var(--line); }
+
+/* ---------- Checkout ---------- */
+
+.pur-form { display: grid; min-width: 0; }
+.pur-block { padding-top: 28px; border-top: 1px solid var(--line-strong); }
+.pur-block + .pur-block { margin-top: 56px; }
+.pur-block-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+.pur-block-title { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+.pur-block-lead { margin: 6px 0 22px; font-size: 15px; color: var(--fg-2); }
+.pur-block .form-grid { gap: 20px 16px; }
+
+.pur-label { font-size: 13px; font-weight: 500; color: var(--fg-2); }
+.pur-country {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 48px;
+  padding: 0 6px 0 14px;
+  border-radius: 12px;
+  background: var(--fill);
+  font-size: 16px;
+}
+.pur-country-name { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.pur-country-name .icon { width: 16px; height: 16px; color: var(--fg-2); }
+
+/* Errors: the text stays in the page color; the icon and the field border (shared .input rule) carry the danger color. */
+.pur-field-error { display: flex; align-items: flex-start; gap: 6px; font-size: 13px; color: var(--fg); }
+.pur-field-error .icon { width: 14px; height: 14px; margin-top: 2px; color: var(--danger); }
+.pur-consent input[aria-invalid='true'] { outline: 2px solid var(--danger); outline-offset: 2px; }
+/* Focus always shows the ring, also on the invalid checkbox (focus lands there after a submission that misses it). */
+.pur-consent input:focus-visible,
+.pur-consent input[aria-invalid='true']:focus { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+.pur-pay { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 8px; }
+.pur-option { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: 14px; border: 1px solid var(--fg); }
+.pur-option input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--fg); flex: none; }
+.pur-option-text { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.pur-option-text label { font-size: 16px; font-weight: 600; cursor: pointer; }
+.pur-option-text span { font-size: 14px; color: var(--fg-2); }
+
+.pur-place { margin-top: 40px; }
+.pur-consent { font-size: 16px; }
+.pur-place .pur-field-error { margin: 8px 0 0 28px; }
+.pur-place-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px; }
+.pur-submit { height: 54px; padding: 0 32px; font-size: 16px; }
+.pur-place-total { display: grid; font-size: 13px; color: var(--fg-2); }
+.pur-place-total .price { font-size: 20px; color: var(--fg); }
+
+/* List of the problems of a submission, in the notice style of the family, with links to the fields. */
+.form-error.pur-errors { margin: 0 0 28px; padding: 16px 20px; border-radius: var(--radius-m); background: var(--fill); color: var(--fg); }
+.pur-errors-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
+.pur-errors-title .icon { width: 16px; height: 16px; flex: none; color: var(--danger); }
+.pur-errors-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 6px 0 0 24px; font-size: 14px; }
+.pur-errors a { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.pur-errors .more { margin: 8px 0 0 24px; font-size: 14px; }
+
+/* Summary of the checkout: one block per seller shipment, as the example cart of the home page. */
+.pur-sum-ships { margin-top: 18px; border-top: 1px solid var(--line); }
+.pur-sum-ship { padding: 13px 0; border-bottom: 1px solid var(--line); }
+.pur-sum-seller { font-size: 13px; font-weight: 600; }
+.pur-sum-seller span { font-weight: 400; color: var(--fg-2); }
+.pur-sum-lines { display: grid; gap: 6px; margin-top: 9px; }
+.pur-sum-line { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; font-size: 14px; }
+.pur-sum-name { line-height: 1.3; }
+.pur-sum-qty { display: block; font-size: 12.5px; color: var(--fg-2); }
+.pur-sum-line .price { font-size: 14px; }
+.pur-sum-fee { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; font-size: 12.5px; color: var(--fg-2); }
+.pur-sum-fee span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pur-layout--checkout .pur-totals { margin-top: 18px; }
+
+/* Blocked checkout: laid out like the empty state of the route, centred on the page. */
+.pur-halt { display: grid; justify-items: center; gap: 18px; padding: 56px 28px 64px; border-radius: var(--radius); background: var(--fill); text-align: center; }
+.pur-halt-list { display: grid; gap: 16px; width: min(100%, 520px); }
+.pur-halt-list li { display: flex; align-items: center; gap: 18px; text-align: left; }
+.pur-halt-name { font-size: 17px; font-weight: 500; line-height: 1.3; }
+.pur-halt-why { display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 14px; color: var(--fg-2); }
+.pur-halt-why .icon { width: 14px; height: 14px; color: var(--fg); }
+.pur-halt-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+
+/* ---------- Orders: confirmation ---------- */
+
+.pur-placed { padding: 72px 0 104px; }
+.pur-placed-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+.pur-placed .lead { max-width: 52ch; }
+.pur-receipt { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 32px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); }
+.pur-receipt dt { font-size: 13px; color: var(--fg-2); }
+.pur-receipt dd { margin-top: 2px; font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.pur-receipt .pur-receipt-total { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+.pur-placed-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+
+/* The order photographed together: the department-card composition and its .obj contact shadow, then its caption. */
+.pur-stage-wrap { min-width: 0; }
+.pur-stage { position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius); background: var(--well), var(--raised); border: 1px solid var(--line); overflow: hidden; }
+.pur-stage-note { margin-top: 14px; font-size: 13px; color: var(--fg-2); }
+.pur-stage--photo img.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Orders: lists ---------- */
+
+.pur-after { padding: 96px 0 136px; }
+.pur-section + .pur-section { margin-top: 120px; }
+.pur-section .section-head { align-items: baseline; margin-bottom: 28px; }
+.pur-count { flex: none; font-size: 14px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.pur-none { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; padding: 28px; border-radius: var(--radius); background: var(--fill); color: var(--fg-2); }
+.pur-missing { margin-bottom: 40px; }
+.pur-note { display: flex; align-items: center; gap: 8px; margin-top: 28px; font-size: 13px; color: var(--fg-2); }
+.pur-note .icon { width: 16px; height: 16px; color: var(--fg); }
+
+.pur-orders { display: grid; gap: 56px; }
+/* The order reached from "See the shipments" receives focus only to be announced, like a section of the home page. */
+.pur-order-item[tabindex='-1']:focus { outline: none; }
+.pur-order { border-top: 1px solid var(--line-strong); }
+.pur-order-head { display: flex; justify-content: space-between; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.pur-order-id { display: flex; flex-direction: column; min-width: 0; }
+.pur-order-kicker { order: -1; margin-bottom: 6px; font-size: 13px; color: var(--fg-2); }
+.pur-order-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.pur-order-title { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.pur-order-meta { margin-top: 6px; font-size: 13px; color: var(--fg-2); }
+.pur-order-sum { flex: none; width: 280px; gap: 6px; font-size: 14px; }
+.pur-order-sum .pur-grand { margin-top: 4px; padding-top: 10px; font-size: 20px; }
+
+.pur-ship-rows > li + li { border-top: 1px solid var(--line); }
+.pur-ship-row { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; padding: 28px 0; }
+.pur-ship-side { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
+.pur-ship-side .pur-tag { order: -1; margin-bottom: 4px; }
+.pur-ship-side .pur-seller-name { font-size: 17px; line-height: 1.3; letter-spacing: -0.01em; }
+.pur-ship-side .chip { margin-top: 14px; }
+.pur-ship-main { min-width: 0; }
+.pur-ship-main > .pur-ship { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+/* The shared four-step tracker (shipmentSteps, .steps in foundation.css); only its place in the row is set here. */
+.pur-ship-main > .steps { margin: 4px 0 26px; }
+
+.pur-items { display: grid; gap: 14px; }
+.pur-item { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.pur-item-name { font-size: 15px; font-weight: 500; line-height: 1.3; }
+.pur-item-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pur-item-sub { margin-top: 2px; font-size: 13px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.pur-item .price { font-size: 15px; }
+
+/* Quote and reservation requests: one per row, like the orders, on a landscape stage for wide objects. */
+.pur-reqs { border-bottom: 1px solid var(--line); }
+.pur-req { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 40px; padding: 28px 0; border-top: 1px solid var(--line); }
+.pur-req:first-child { border-top-color: var(--line-strong); }
+.pur-req-figure { display: flex; flex-direction: column; min-width: 0; }
+.pur-req-figure figcaption { margin-top: 12px; font-size: 13px; color: var(--fg-2); text-wrap: balance; }
+.offer-media.pur-req-media { width: 280px; height: 200px; border-radius: 16px; }
+.pur-req-media img:not(.cover) { max-width: 80%; max-height: 62%; }
+.pur-req-body { display: grid; align-content: start; justify-items: start; min-width: 0; }
+.pur-req-kind { font-size: 13px; color: var(--fg-2); }
+.pur-req-name { margin-top: 4px; font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; }
+.pur-req-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.pur-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 24px; width: 100%; margin: 20px 0 22px; font-size: 15px; }
+.pur-facts dt { font-size: 12px; color: var(--fg-2); }
+.pur-facts dd { margin-top: 2px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.pur-facts-wide { grid-column: span 3; }
+.pur-facts-wide dd { max-width: 60ch; }
+
+/* ---------- Narrow screens (structure only) ---------- */
+
+@media (max-width: 1200px) {
+  .pur-layout { grid-template-columns: minmax(0, 1fr) 340px; gap: 40px; }
+  .pur-ship-row { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; }
+  .pur-req { grid-template-columns: 240px minmax(0, 1fr); gap: 32px; }
+  .offer-media.pur-req-media { width: 240px; height: 180px; }
+}
+@media (max-width: 1000px) {
+  .pur-layout { grid-template-columns: 1fr; }
+  .pur-route { justify-items: start; text-align: left; }
+  .pur-aside { position: static; }
+  .pur-placed-grid { grid-template-columns: 1fr; gap: 48px; }
+  .pur-ship-row { grid-template-columns: 1fr; gap: 20px; }
+  .pur-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pur-facts-wide { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .pur-summary { padding-left: 20px; padding-right: 20px; }
+  .pur-halt { padding: 40px 20px 44px; }
+  .pur-line { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; }
+  .offer-media.pur-media { width: 88px; height: 88px; border-radius: 14px; }
+  .pur-line-amount { grid-column: 2; padding-top: 0; text-align: left; }
+  .pur-block-head { flex-direction: column; align-items: flex-start; }
+  .pur-order-head { flex-direction: column; gap: 18px; }
+  .pur-order-sum { width: 100%; }
+  .pur-req { grid-template-columns: 1fr; gap: 20px; }
+  .offer-media.pur-req-media { width: 100%; height: auto; aspect-ratio: 16 / 10; }
+  .pur-facts { grid-template-columns: 1fr; }
+  .pur-receipt { grid-template-columns: 1fr; }
+  .pur-ship { flex-wrap: wrap; }
+  .pur-ship .price { margin-left: 28px; padding-left: 0; }
+}

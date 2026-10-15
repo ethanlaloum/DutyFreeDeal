@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explorations DutyFreeDeal</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #101012;
+      --panel: #19191c;
+      --line: #2c2c31;
+      --text: #f4f3ef;
+      --muted: #a9a8b0;
+      --a: #ffd000;
+      --b: #e4007c;
+      --c: #c8321f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 16px/1.55 "Hanken Grotesk", system-ui, sans-serif;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 56px 40px 80px; }
+    header { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0; font-size: clamp(40px, 5vw, 72px); line-height: 0.98; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+    .intro { margin: 0; color: var(--muted); font-size: 18px; max-width: 52ch; }
+    .intro strong { color: var(--text); font-weight: 500; }
+    .direction { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; padding: 48px 0; border-bottom: 1px solid var(--line); align-items: start; }
+    .shot { display: block; position: relative; border: 1px solid var(--line); background: var(--panel); aspect-ratio: 1440 / 900; overflow: hidden; text-decoration: none; }
+    .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 500ms cubic-bezier(.2,.7,.2,1); }
+    .shot:hover img { transform: scale(1.015); }
+    .shot .missing { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; }
+    .tag { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .tag i { width: 14px; height: 14px; display: inline-block; background: var(--dot); }
+    h2 { margin: 12px 0 6px; font-size: 40px; line-height: 1; font-weight: 800; letter-spacing: -0.01em; }
+    .side { margin: 0 0 18px; font-size: 18px; color: var(--text); }
+    .desc { margin: 0 0 20px; color: var(--muted); }
+    h3 { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    ol { margin: 0 0 24px; padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    .open { display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; background: var(--dot); color: #0f0e12; font-weight: 700; text-decoration: none; }
+    .open.light { color: #fff; }
+    .open:hover { filter: brightness(1.08); }
+    .feedback { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; padding-top: 48px; }
+    .feedback h2 { font-size: 32px; }
+    .feedback ol { font-size: 18px; }
+    .notes { color: var(--muted); font-size: 14px; border-left: 1px solid var(--line); padding-left: 24px; }
+    .notes p { margin: 0 0 10px; }
+    @media (max-width: 900px) {
+      .wrap { padding: 32px 16px 56px; }
+      header, .direction, .feedback { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>DutyFreeDeal, direction « Studio »</h1>
+      <p class="intro">Direction repartie de zéro sur tes références <strong>Apple, Revolut / Stripe, Farfetch / SSENSE</strong>, jugée « bien plus premium ». Accueil complet, corrigé après deux relectures indépendantes, à valider sur ordinateur.</p>
+    </header>
+
+    <main>
+      <section class="direction" style="--dot: #f5f5f7" aria-labelledby="studio-title">
+        <a class="shot" href="./studio/" aria-label="Ouvrir la direction Studio">
+          <img src="./studio/captures/1440-hero.png" alt="Premier écran de la direction Studio" onerror="this.remove()">
+          <span class="missing" aria-hidden="true">Capture en préparation</span>
+        </a>
+        <div>
+          <span class="tag"><i></i>Direction en cours</span>
+          <h2 id="studio-title">Studio</h2>
+          <p class="side">Les produits du monde entier, photographiés comme en studio.</p>
+          <p class="desc">Toutes les photos sont détourées et posées sur le même fond, avec la même lumière. L’interface se tait : noir, blanc, une seule police, la couleur vient des produits et des halos de lumière. Une seule façon de bouger, lente.</p>
+          <h3>À essayer</h3>
+          <ol>
+            <li>Regarde le premier écran, puis fais défiler doucement jusqu’en bas.</li>
+            <li>Ouvre « Tous les rayons » et parcours les univers.</li>
+            <li>Change le pays de livraison, puis filtre « Du monde entier » par pays du vendeur.</li>
+            <li>Ajoute deux ou trois produits de vendeurs différents, puis ouvre le panier.</li>
+          </ol>
+          <a class="open" href="./studio/">Ouvrir Studio →</a>
+        </div>
+      </section>
+
+      <section class="feedback" aria-labelledby="fb-title">
+        <div>
+          <h2 id="fb-title">Explorations précédentes, écartées</h2>
+          <ol>
+            <li><a href="./a-arrivees/">A « Arrivées »</a> : signalétique d’aéroport.</li>
+            <li><a href="./b-marche/">B « Marché mondial »</a> : couleurs-pays.</li>
+            <li><a href="./c-laissez-passer/">C « Laissez-passer »</a> : passeport.</li>
+          </ol>
+        </div>
+        <div class="notes">
+          <p>Pages d’accueil seulement : les liens vers le catalogue, les fiches ou la commande ouvrent la refonte existante.</p>
+          <p>Français uniquement à ce stade. À regarder sur ordinateur, idéalement en 1440 ou 1280 px de large.</p>
+          <p>Produits, vendeurs et prix fictifs. Photos réelles et illustratives, crédits en pied de chaque page.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

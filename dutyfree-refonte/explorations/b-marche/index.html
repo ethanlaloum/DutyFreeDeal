@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DutyFreeDeal · Marché mondial</title>
+  <meta name="description" content="Exploration B de l’accueil DutyFreeDeal : le grand marché du monde, en affiches. Maquette de démonstration.">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="../shared/catalog.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+
+  <aside class="demo-band" id="top" aria-label="Maquette de démonstration">
+    <div class="wrap demo-band-in">
+      <p data-demo-notice>Maquette de démonstration.</p>
+      <a href="#sources" data-action="open-credits">Sources et licences</a>
+    </div>
+  </aside>
+
+  <header class="hdr" id="hdr">
+    <div class="hdr-row">
+      <a class="logo" href="./" data-action="top">
+        <span class="logo-word">DutyFreeDeal</span>
+        <span class="logo-dots" aria-hidden="true"><i class="t-mx"></i><i class="t-us"></i><i class="t-es"></i><i class="t-fr"></i></span>
+        <span class="sr-only">, retour en haut de l’accueil</span>
+      </a>
+
+      <form class="hsearch" id="hsearch" role="search" action="../../" data-search inert>
+        <label class="sr-only" for="hsearch-q">Rechercher parmi les offres livrables <span data-dest-in>en France</span></label>
+        <input id="hsearch-q" name="q" type="search" placeholder="Parfum, casque, valise, rayon…" autocomplete="off" spellcheck="false" data-q>
+        <button type="submit" class="hsearch-btn" data-icon="search"><span class="sr-only">Rechercher</span></button>
+      </form>
+
+      <div class="hdr-tools">
+        <div class="dest" data-menu="dest">
+          <button type="button" class="dest-btn" id="dest-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="dest-list" data-action="dest-toggle">
+            <span class="dest-k">Livraison</span>
+            <span class="sticker sticker--xs" data-dest-sticker aria-hidden="true">FR</span>
+            <span class="dest-name" data-dest-name>France</span>
+            <span class="caret" data-icon="caret"></span>
+          </button>
+          <ul class="dest-list" id="dest-list" role="listbox" aria-label="Pays de livraison" tabindex="-1" hidden></ul>
+        </div>
+
+        <div class="lang" role="group" aria-label="Langue">
+          <button type="button" aria-pressed="true" data-action="lang" data-lang="fr" lang="fr">FR</button>
+          <button type="button" aria-pressed="false" data-action="lang" data-lang="en" lang="en">EN</button>
+        </div>
+
+        <a class="hdr-count" href="../../#/wishlist">
+          <span data-icon="heart"></span><span class="hdr-count-l">Favoris</span>
+          <span class="count" data-fav-count>0</span>
+        </a>
+        <a class="hdr-count" href="../../#/cart" id="cart-link">
+          <span class="cart-ico" data-icon="tote"></span><span class="hdr-count-l">Panier</span>
+          <span class="count" data-cart-count>0</span>
+        </a>
+      </div>
+    </div>
+
+    <nav class="hdr-nav" aria-label="Navigation principale">
+      <button type="button" class="nav-rayons" id="rayons-btn" aria-expanded="false" aria-controls="rayons-panel" data-action="rayons-toggle">
+        <span data-icon="grid"></span><span data-nav="0">Tous les rayons</span><span class="caret" data-icon="caret"></span>
+      </button>
+      <a class="nav-link nav-link--deals" href="#bons-plans"><i aria-hidden="true"></i><span data-nav="1">Bons plans</span></a>
+      <a class="nav-link nav-link--rare" href="#introuvables"><i aria-hidden="true"></i><span data-nav="2">Introuvables</span></a>
+      <a class="nav-link" href="../../#/orders"><span data-nav="3">Mes commandes</span></a>
+      <a class="nav-link nav-link--sell" href="../../#/seller/onboarding"><span data-icon="store"></span>Devenir vendeur</a>
+    </nav>
+
+    <div class="rpanel" id="rayons-panel" role="dialog" aria-modal="false" aria-labelledby="rpanel-title" hidden>
+      <div class="rpanel-in">
+        <div class="rpanel-tiles">
+          <h2 class="rpanel-title" id="rpanel-title">Tous les rayons</h2>
+          <ul class="rpanel-grid" data-rpanel-grid></ul>
+        </div>
+        <div class="rpanel-detail" data-rpanel-detail></div>
+        <button type="button" class="rpanel-close" data-action="rayons-close"><span data-icon="close"></span><span class="sr-only">Fermer le menu des rayons</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- 2. Hero : trois étals -->
+    <section class="hero" aria-labelledby="slogan">
+      <div class="hero-head wrap">
+        <h1 class="slogan" id="slogan"><span class="slogan-fit" data-slogan>Le duty free, sans passer par l’aéroport</span></h1>
+      </div>
+      <div class="hero-row wrap">
+        <p class="pitch" data-pitch>Découvrez des bons plans du monde entier et des produits difficiles à trouver, livrables chez vous.</p>
+        <form class="search" id="hero-search" role="search" action="../../" data-search>
+          <label class="search-label" for="q">Rechercher parmi les offres livrables <span data-dest-in>en France</span></label>
+          <div class="search-field">
+            <input id="q" name="q" type="search" placeholder="Parfum, casque, valise, rayon…" autocomplete="off" spellcheck="false" data-q>
+            <button type="submit" class="btn btn--primary search-btn"><span data-icon="search"></span><span class="search-btn-t">Rechercher</span></button>
+          </div>
+        </form>
+      </div>
+      <section class="stalls-wrap" aria-labelledby="vitrine-title">
+        <h2 class="sr-only" id="vitrine-title">Vitrine : offres livrables <span data-dest-in>en France</span></h2>
+        <div class="stalls" data-stalls></div>
+      </section>
+    </section>
+
+    <!-- 3. Le monde entier, livrable chez vous -->
+    <section class="world" id="monde" aria-labelledby="world-title">
+      <div class="wrap world-in">
+        <h2 class="kicker" id="world-title">Le monde entier, livrable chez vous</h2>
+        <p class="world-stat">
+          <span class="world-n"><span class="sr-only" data-world-n-sr>0</span><span class="world-n-v" aria-hidden="true" data-world-n>0</span></span>
+          <span class="world-text">
+            <span class="world-l1"><span data-world-noun>offres livrables</span> <span data-dest-in>en France</span>,</span>
+            <span class="world-l2" data-world-countries></span>
+          </span>
+        </p>
+      </div>
+      <ol class="cues">
+        <li class="cue t-lime">
+          <span class="cue-n" aria-hidden="true"><span class="cue-n-v">1</span></span>
+          <h3 class="cue-t">Livrable chez vous</h3>
+          <p>Le catalogue réunit les offres du monde entier livrables <span data-dest-in>en France</span>, quel que soit le pays du vendeur.</p>
+        </li>
+        <li class="cue t-sky">
+          <span class="cue-n" aria-hidden="true"><span class="cue-n-v">2</span></span>
+          <h3 class="cue-t">Vendeurs vérifiés</h3>
+          <p>Vérification avant activation : KYC pour les particuliers, KYB pour les entreprises. Procédure simulée dans la maquette.</p>
+        </li>
+        <li class="cue t-violet">
+          <span class="cue-n" aria-hidden="true"><span class="cue-n-v">3</span></span>
+          <h3 class="cue-t">Un panier, un paiement</h3>
+          <p>Plusieurs vendeurs, un seul paiement ; chaque vendeur expédie sa part de la commande. Paiement simulé.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4. Tout le marché : le mur d’abondance -->
+    <section class="market" id="marche" aria-labelledby="market-title">
+      <div class="market-head wrap">
+        <h2 class="market-title" id="market-title"><span class="market-fit" data-market-title>Tout le marché</span></h2>
+        <p class="market-intro">Toutes les offres achetables livrables <span data-dest-in>en France</span>. La couleur de chaque étal est celle du pays du vendeur.</p>
+      </div>
+      <div class="filters" data-filters>
+        <div class="filters-in wrap">
+          <div class="seg" role="group" aria-label="Sélection" data-f-coll></div>
+          <div class="fcountries" role="group" aria-label="Pays du vendeur" data-f-countries></div>
+          <div class="frayon">
+            <label for="f-rayon">Rayon</label>
+            <span class="frayon-field"><select id="f-rayon" data-f-rayon></select><span class="caret" data-icon="caret"></span></span>
+          </div>
+          <p class="fcount" data-f-count></p>
+        </div>
+      </div>
+      <div class="wrap">
+        <ul class="wall" data-wall aria-label="Offres du marché"></ul>
+        <div class="wall-empty" data-wall-empty hidden>
+          <p class="wall-empty-t">Aucune offre ne correspond à ces filtres pour une livraison <span data-dest-in>en France</span>.</p>
+          <button type="button" class="btn btn--light" data-action="f-reset"><span data-icon="reset"></span>Afficher tout le marché</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Bons plans | Introuvables -->
+    <div class="duo">
+      <section class="sel t-lime" id="bons-plans" aria-labelledby="deals-title" data-sel="deals">
+        <h2 class="sel-title" id="deals-title"><span class="sel-fit" data-coll-name="deals">Bons plans</span></h2>
+        <p class="sel-text" data-coll-text="deals"></p>
+        <ul class="sel-cards" data-sel-cards="deals"></ul>
+        <p class="sel-more" data-sel-more="deals"></p>
+      </section>
+      <section class="sel t-violet" id="introuvables" aria-labelledby="rare-title" data-sel="rare">
+        <h2 class="sel-title" id="rare-title"><span class="sel-fit" data-coll-name="rare">Introuvables</span></h2>
+        <p class="sel-text" data-coll-text="rare"></p>
+        <ul class="sel-cards" data-sel-cards="rare"></ul>
+        <p class="sel-more" data-sel-more="rare"></p>
+      </section>
+    </div>
+
+    <!-- 6. Les 15 rayons -->
+    <section class="rayons" id="rayons" aria-labelledby="rayons-title">
+      <div class="wrap rayons-head">
+        <h2 class="rayons-title" id="rayons-title">Les <span data-rayon-total>15</span> rayons</h2>
+        <p class="rayons-intro">Chaque rayon réunit ses biens principaux et leurs accessoires.</p>
+        <a class="link-arrow" href="../../#/categories">Toute l’arborescence<span data-icon="arrow"></span></a>
+      </div>
+      <div class="wrap">
+        <ul class="rwall" data-rwall></ul>
+      </div>
+    </section>
+
+    <!-- 7. Gros biens sur demande -->
+    <section class="quote" id="sur-devis" aria-labelledby="quote-title">
+      <div class="wrap">
+        <h2 class="quote-title" id="quote-title"><span class="quote-line">Voitures et maisons,</span> <span class="quote-line">sur devis</span></h2>
+        <p class="quote-intro">Les gros biens se commandent par une demande de devis ou de réservation, sans paiement en ligne. Aucun acompte ni réservation confirmée : démonstration.</p>
+        <ul class="quote-grid" data-quote></ul>
+      </div>
+    </section>
+
+    <!-- 8. Devenir vendeur -->
+    <section class="sell t-sky" id="vendre" aria-labelledby="sell-title">
+      <div class="wrap sell-in">
+        <h2 class="sell-title" id="sell-title">Vendez au-delà de votre pays.</h2>
+        <div class="sell-side">
+          <p class="sell-text">Particuliers et entreprises, après vérification (KYC ou KYB).</p>
+          <a class="btn btn--primary" href="../../#/seller/onboarding"><span data-icon="store"></span>Devenir vendeur</a>
+        </div>
+        <ul class="sell-stickers" data-sell-stickers aria-hidden="true"></ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- 9. Pied de page -->
+  <footer class="ftr">
+    <div class="wrap">
+      <div class="ftr-top">
+        <a class="logo logo--ftr" href="./" data-action="top"><span class="logo-word">DutyFreeDeal</span><span class="sr-only">, retour en haut de l’accueil</span></a>
+        <p class="ftr-legend-t">La couleur d’un étal, c’est le pays du vendeur.</p>
+        <ul class="ftr-legend" data-legend></ul>
+      </div>
+      <div class="ftr-cols">
+        <nav class="ftr-col" aria-labelledby="ftr-clients">
+          <h2 id="ftr-clients">Acheter</h2>
+          <ul>
+            <li><a href="../../#/categories" data-nav="0">Tous les rayons</a></li>
+            <li><a href="#bons-plans" data-nav="1">Bons plans</a></li>
+            <li><a href="#introuvables" data-nav="2">Introuvables</a></li>
+            <li><a href="../../#/orders" data-nav="3">Mes commandes</a></li>
+            <li><a href="../../#/wishlist">Favoris</a></li>
+            <li><a href="../../#/cart">Panier</a></li>
+          </ul>
+        </nav>
+        <nav class="ftr-col" aria-labelledby="ftr-sellers">
+          <h2 id="ftr-sellers">Vendre</h2>
+          <ul>
+            <li><a href="../../#/seller/onboarding">Devenir vendeur</a></li>
+            <li><a href="../../#/seller">Espace vendeur</a></li>
+          </ul>
+        </nav>
+        <nav class="ftr-col" aria-labelledby="ftr-demo">
+          <h2 id="ftr-demo">Maquette</h2>
+          <ul>
+            <li><a href="../../#/">Refonte complète</a></li>
+            <li><a href="../../#/admin">Administration</a></li>
+            <li><a href="#sources" data-action="open-credits">Sources et licences</a></li>
+          </ul>
+        </nav>
+        <p class="ftr-demo" data-demo-notice>Maquette de démonstration.</p>
+      </div>
+      <details class="credits" id="sources">
+        <summary><span>Sources et licences</span><span class="caret" data-icon="caret"></span></summary>
+        <p class="credits-note">Les photographies sont réelles et illustratives ; les offres, vendeurs et prix qui les accompagnent sont fictifs. Polices : Anybody et Instrument Sans (SIL Open Font License). Icônes : Phosphor (MIT). Animations : GSAP.</p>
+        <ul class="credits-list" data-credits></ul>
+      </details>
+    </div>
+  </footer>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <p class="sr-only" data-announcer aria-live="polite"></p>
+</body>
+</html>

@@ -1,0 +1,7 @@
+CONTRACT.md
+README.md
+.env*
+*.zip
+*-desktop.png
+assets/departments/generated-*.json
+assets/departments/ASSET_PROMPTS.json

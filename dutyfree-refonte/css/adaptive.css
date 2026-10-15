@@ -1,0 +1,180 @@
+/* Adaptive layer for narrow viewports. Keeps every page free of horizontal overflow.
+   The full mobile design and its verification are a later step of the redesign. */
+
+@media (max-width: 960px) {
+  .strip-inner {
+    padding-block: var(--s-2);
+  }
+
+  .mast-inner {
+    height: auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    row-gap: var(--s-2);
+    padding-block: var(--s-3);
+  }
+
+  .search--header {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: none;
+  }
+
+  .site-header[data-search='hidden'] .search--header {
+    display: none;
+  }
+
+  .settings {
+    justify-self: end;
+  }
+
+  .setting-btn .setting-label,
+  .setting--lang .setting-label,
+  .cart-btn > span:not(.badge) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .setting--lang {
+    padding-left: var(--s-2);
+  }
+
+  .account {
+    padding-left: var(--s-2);
+  }
+
+  .tabs-inner {
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: var(--s-2);
+  }
+
+  .tabs-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab::after {
+    bottom: 0;
+  }
+
+  .rayons-shell {
+    grid-template-columns: 1fr;
+    max-height: calc(100dvh - 160px);
+    overflow-y: auto;
+  }
+
+  .rayons-side {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .rayons-list {
+    overflow: visible;
+  }
+
+  .rayons-detail {
+    padding: var(--s-6) 0;
+  }
+
+  .rayons-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .entry {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--s-4);
+  }
+}
+
+@media (max-width: 760px) {
+  .cover-grid,
+  .rayon-grid {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .mast-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand account'
+      'settings settings'
+      'search search';
+  }
+
+  .wordmark {
+    grid-area: brand;
+    font-size: 1.2rem;
+  }
+
+  .account {
+    grid-area: account;
+    border-left: 0;
+  }
+
+  .settings {
+    grid-area: settings;
+    justify-self: stretch;
+    justify-content: space-between;
+    padding-top: var(--s-2);
+    border-top: 1px solid var(--rule);
+  }
+
+  .search--header {
+    grid-area: search;
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .setting-btn {
+    padding-left: 0;
+  }
+
+  .strip p {
+    font-size: 0.75rem;
+  }
+
+  .strip a {
+    display: none;
+  }
+
+  .legend-item {
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    row-gap: var(--s-2);
+  }
+
+  .legend-action {
+    grid-column: 2 / -1;
+  }
+
+  .plate {
+    min-height: 240px;
+    padding-left: 0;
+  }
+
+  .search--cover .search-field {
+    height: 56px;
+  }
+
+  .search--cover .search-submit {
+    height: 46px;
+    padding: 0 var(--s-4);
+  }
+
+  .entry-actions,
+  .offer-actions {
+    flex-wrap: wrap;
+  }
+
+  .back-seller .btn {
+    width: 100%;
+  }
+
+  .drawer {
+    width: 100vw;
+  }
+}

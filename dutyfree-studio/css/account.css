@@ -1,0 +1,83 @@
+/* DutyFreeDeal Studio: example customer account (sign in, create an account, signed in). One column on the stage light. */
+
+.acc { position: relative; isolation: isolate; overflow: hidden; padding: clamp(48px, 9vh, 104px) 0 clamp(96px, 14vh, 144px); }
+.acc-light { top: 64%; height: 340px; opacity: 0.26; }
+.acc-wrap { display: grid; justify-items: center; width: min(100% - 2 * var(--pad), 460px); }
+
+.acc-head { margin-bottom: 32px; text-align: center; }
+.acc-head .eyebrow { margin-bottom: 14px; }
+
+.acc-card {
+  width: 100%;
+  padding: 20px 28px 24px;
+  background: rgba(22, 22, 24, 0.8);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+}
+
+/* Sign in | Create an account: two links styled as one segmented control. */
+.acc-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 26px; padding: 4px; border-radius: 999px; background: var(--fill); }
+.acc-switch a {
+  display: grid;
+  place-items: center;
+  height: 38px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-2);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.acc-switch a:hover { color: var(--fg); }
+.acc-switch a[aria-current='page'] { background: rgba(255, 255, 255, 0.14); color: var(--fg); }
+
+.acc-form { display: grid; gap: 18px; }
+.acc-pass { position: relative; }
+.acc-pass .input { padding-right: 52px; }
+.acc-reveal { position: absolute; top: 4px; right: 4px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; color: var(--fg-2); transition: color 0.3s var(--ease), background-color 0.3s var(--ease); }
+.acc-reveal:hover, .acc-reveal[aria-pressed='true'] { color: var(--fg); background: var(--fill); }
+.acc-reveal .icon { width: 19px; height: 19px; }
+.acc-error { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg); }
+.acc-error .icon { width: 15px; height: 15px; color: #ff8a80; }
+.acc-form .input[aria-invalid='true'] { border-color: #ff8a80; }
+.acc-consent { display: grid; gap: 6px; }
+.acc-consent .check { font-size: 14px; color: var(--fg-2); }
+.acc-summary { margin-top: 0; }
+.acc-form .btn--primary { margin-top: 6px; }
+.acc-fill { justify-self: center; margin-top: -6px; }
+
+.acc-note { width: 100%; margin-top: 16px; }
+.acc-note .notice { font-size: 13px; }
+.acc-seller { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px 12px; max-width: 44ch; margin-top: 28px; font-size: 14px; color: var(--fg-2); text-align: center; text-wrap: balance; }
+.acc-seller .more { font-size: 14px; }
+
+/* Signed in. */
+.acc-who { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 6px 0 20px; border-bottom: 1px solid var(--line); }
+.acc-avatar { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--fill-2); }
+.acc-avatar .icon { width: 22px; height: 22px; }
+.acc-who-name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.acc-who-mail { font-size: 13px; color: var(--fg-2); overflow-wrap: anywhere; }
+.acc-links { padding: 10px 0; }
+.acc-links a {
+  display: grid;
+  grid-template-columns: 20px 1fr 14px;
+  align-items: center;
+  gap: 12px;
+  margin: 0 -10px;
+  padding: 12px 10px;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: background-color 0.3s var(--ease);
+}
+.acc-links a:hover { background: var(--fill); }
+.acc-links .icon { width: 18px; height: 18px; color: var(--fg-2); }
+.acc-links .icon:last-child { width: 13px; height: 13px; }
+.acc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 18px; border-top: 1px solid var(--line); }
+.acc-actions .btn { padding: 0 16px; }
+
+@media (max-width: 640px) {
+  .acc-card { padding: 16px 18px 20px; }
+  .acc-actions { grid-template-columns: 1fr; }
+  .acc-who { grid-template-columns: 48px minmax(0, 1fr); }
+  .acc-who .demo-tag { grid-column: 2; justify-self: start; }
+}

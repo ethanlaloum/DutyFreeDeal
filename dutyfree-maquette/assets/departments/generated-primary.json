@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fashion",
+    "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The fashion department: a cognac leather tote bag, neatly folded cream knitwear, white minimal leather sneakers and sunglasses on a warm beige studio plinth. Contemporary refined styling.",
+    "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-85a2a919-e9c2-4a16-ae66-e17483f2b553.png",
+    "path": "assets/departments/fashion.png",
+    "method": "Built-in OpenAI ImageGen"
+  },
+  {
+    "id": "beauty",
+    "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The beauty and perfume department: an unbranded amber perfume bottle with a plain cap, matte ivory skincare jars and tubes without any lettering, a makeup brush and a small rosy palette on pale limestone. Refined still life.",
+    "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-a8886b40-9f43-4dc1-a3c9-64cb1044429b.png",
+    "path": "assets/departments/beauty.png",
+    "method": "Built-in OpenAI ImageGen"
+  },
+  {
+    "id": "tech",
+    "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The electronics department: matte charcoal over-ear wireless headphones, a plain silver laptop partly open, a compact mirrorless camera with lens and a modern smartphone whose screen is black. All completely unbranded and no labels. Arranged on light stone display plinths.",
+    "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-29628b53-ff92-48b2-bc4b-ea439d8dcd6e.png",
+    "path": "assets/departments/tech.png",
+    "method": "Built-in OpenAI ImageGen"
+  },
+  {
+    "id": "home",
+    "prompt": "Create a photorealistic premium ecommerce department photograph for DutyFreeDeal. Landscape framing, no text, no letters, no labels, no logos, no watermark, no people. Warm ivory and light stone palette, soft natural studio light, realistic materials, editorial product photography. Objects fully visible, arranged harmoniously in the central 70% of the frame so this works both as a wide category card and a small thumbnail. Not a collage, one coherent photographed scene. The home and interiors department: a beautiful bright modern living-room corner, cream upholstered lounge chair, pale oak side table, warm sculptural floor lamp and simple ceramic vase. Quiet premium interior styling, uncluttered scene, wide central composition.",
+    "source": "/Users/ethanlaloum/.codex/generated_images/01a13459-472e-7112-a74d-01339b8d23cb/exec-70fb053e-77d5-4b08-b98e-dff7e86042e6.png",
+    "path": "assets/departments/home.png",
+    "method": "Built-in OpenAI ImageGen"
+  }
+]

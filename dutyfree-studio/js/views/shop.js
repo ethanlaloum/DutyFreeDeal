@@ -4,7 +4,7 @@ import {
   state, label, esc, icon, normalize, plural, money, moneyRound, countries, countryName, countryIn, categories, vendor,
   vendorName, vendorState, allProducts, product, isHidden, publicOffer, deliverable, stock, isQuote, available, shipping,
   shopOffers, inCollection, modelKey, cutout, altText, sameModel, findCategory, department, inCategory, countNodes,
-  catalogHref, productHref, addRequest, requestKindLabel
+  catalogHref, productHref, addRequest, requestKindLabel, searchScore, usAlt
 } from '../core.js';
 import {
   offerCard, offerImage, cutImg, favButton, sellerLine, departmentArt, breadcrumb, pageHead, emptyState,
@@ -32,11 +32,6 @@ const LOGO = new Set([...BRANDED, 'watch']);
 /* Visuals generated for the prototype (the car and the house) are illustrations, not photographs. */
 const GENERATED = new Set(CREDITS.filter((c) => c.kind === 'generated-illustration').map((c) => c.key));
 
-/* The data now carries US English, except two image descriptions of art.js ("charcoal grey", "timber house"): they are
- * corrected here until the source is. "Hardback" (data.js name and spec, art.js description) is left as it is on purpose:
- * renamed here only, the same offer would carry another name in the toast, the header panels, the cart and the orders. */
-const US_ALT = [[/\bgrey\b/gi, 'gray'], [/\btimber house\b/gi, 'wood house']];
-const usAlt = (text) => US_ALT.reduce((t, [re, to]) => t.replace(re, (w) => (w[0] === w[0].toUpperCase() ? `${to[0].toUpperCase()}${to.slice(1)}` : to)), String(text ?? ''));
 /** Name of a department or category. */
 const catName = (n) => label(n?.name);
 
@@ -68,7 +63,7 @@ const deptStrip = (href, navLabel, attrs = '') => `<nav class="shop-index" aria-
   <ul role="list">${categories.map((d) => `<li><a href="${href(d)}">${deptThumb(d.id, 'thumb--l')}<span class="shop-index-name" aria-hidden="true">${esc(shortName(d))}</span><span class="sr-only">${esc(catName(d))}</span></a></li>`).join('')}</ul>
 </nav>`;
 
-/** The shared offer card; only the US spelling of two image descriptions is corrected here (see US_ALT). */
+/** The shared offer card; only the US spelling of two image descriptions is corrected here (see usAlt in core.js). */
 const card = (p, opts) => offerCard(p, opts).replace(/ alt="([^"]*)"/g, (m, alt) => ` alt="${usAlt(alt)}"`);
 
 /**
@@ -138,53 +133,6 @@ function bindDestination(main) {
 }
 
 const destButton = (text = 'Change the delivery country', cls = 'btn btn--secondary') => `<button class="${cls}" type="button" data-shop-dest id="shop-dest" aria-expanded="false" aria-controls="panel-dest">${cls.split(' ').includes('btn') ? icon('globe') : ''}<span>${esc(text)}</span></button>`;
-
-/* ---------- Search ---------- */
-
-const words = (text) => normalize(text).split(/[^a-z0-9]+/).filter(Boolean);
-/** Singular of a plural word, enough for this catalog: "watches" → "watch", "shoes" → "shoe", "accessories" → "accessory". */
-const stem = (t) => {
-  if (t.length <= 3 || /(ss|us|is)$/.test(t)) return t;
-  if (/(x|z|ch|sh|ss)es$/.test(t)) return t.slice(0, -2);
-  if (/ies$/.test(t)) return `${t.slice(0, -3)}y`;
-  return t.endsWith('s') ? t.slice(0, -1) : t;
-};
-
-function haystack(p) {
-  const v = vendor(p.vendorId);
-  const cats = [...new Set([p.category, ...(p.path || [])])].map((id) => findCategory(id)).filter(Boolean)
-    .map(({ node, path }) => ({ words: words(`${label(node.name)} ${catName(node)}`), depth: path.length }));
-  return {
-    name: words(label(p.name)),
-    seller: words([vendorName(v), countryName(v?.country)].join(' ')),
-    cats,
-    alt: words(`${altText(p)} ${usAlt(altText(p))}`),
-    full: normalize(label(p.name))
-  };
-}
-
-/**
- * Score of an offer for a query: every word must match its name, seller, seller country, one of its categories
- * (the more specific the category, the higher) or, as a whole word, its image description.
- */
-function searchScore(p, q) {
-  const tokens = words(q);
-  if (!tokens.length) return 0;
-  const h = haystack(p);
-  const same = (w, t) => w === t || stem(w) === stem(t);
-  const begins = (w, t, min) => t.length >= min && w.startsWith(t);
-  let score = 0;
-  for (const t of tokens) {
-    const name = h.name.some((w) => same(w, t)) ? 4 : h.name.some((w) => begins(w, t, 3)) ? 3 : 0;
-    const cat = Math.max(0, ...h.cats.map((c) => (c.words.some((w) => same(w, t) || begins(w, t, 4)) ? 0.8 + 0.4 * c.depth : 0)));
-    const seller = h.seller.some((w) => same(w, t) || begins(w, t, 4)) ? 1.5 : 0;
-    const alt = h.alt.some((w) => same(w, t)) ? 1 : 0;
-    const s = Math.max(name, cat, seller, alt);
-    if (!s) return 0;
-    score += s;
-  }
-  return score + (h.full.includes(normalize(q)) ? 3 : 0);
-}
 
 /* ---------- Catalog ---------- */
 
@@ -801,7 +749,7 @@ function assurances(p, near) {
     ? [deliverable(p)
       ? ['envelope', esc('Nothing is sent and nothing is paid: the request is saved in this browser and appears in My orders.')]
       : ['truck', esc('A quote or reservation can be requested only for a country the seller delivers to.')],
-    ['calendar', esc('How quotes and reservations work is still to be defined; nothing is confirmed in this demonstration.')]]
+    ['calendar', esc('The seller answers with a quote; whether the payment then goes through DutyFreeDeal is still open. Nothing is confirmed in this demonstration.')]]
     : [['truck', esc('Shipped by the seller, who manages their own stock and ships their own orders.')],
       ['bag', esc('One cart and one payment across sellers; each seller’s delivery is shown separately.')]];
   items.push(['squares', `${esc('One listing per seller:')} ${compare}`]);
@@ -932,7 +880,7 @@ function quoteDialog(p, ctx) {
           <label class="check"><input type="radio" name="kind" value="quote" checked aria-describedby="shop-kind-help"><span>${esc('Quote')}</span></label>
           <label class="check"><input type="radio" name="kind" value="reservation" aria-describedby="shop-kind-help"><span>${esc('Reservation')}</span></label>
         </div>
-        <p class="help" id="shop-kind-help">${esc('Their terms are still to be defined.')}</p>
+        <p class="help" id="shop-kind-help">${esc('A reservation holds an available item on the seller’s terms.')}</p>
       </fieldset>
       ${input({ name: 'desiredDate', text: `${esc('Desired date')} <span class="muted">${esc('(optional)')}</span>`, help: 'Month, day and year: MM/DD/YYYY.', attrs: ' autocomplete="off" placeholder="MM/DD/YYYY" maxlength="10"' })}
       ${input({ name: 'name', text: esc('Fictional full name'), required: true, attrs: ' autocomplete="off"' })}

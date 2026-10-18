@@ -187,6 +187,59 @@ export const inCategory = (p, id) => !id || p.category === id || (Array.isArray(
 export const countNodes = (node) => (node.children || []).reduce((sum, child) => sum + 1 + countNodes(child), 0);
 export const totalCategories = () => categories.reduce((sum, c) => sum + 1 + countNodes(c), 0);
 
+/* ---------- Search (one scoring for the suggestions and the results page) ---------- */
+
+const words = (text) => normalize(text).split(/[^a-z0-9]+/).filter(Boolean);
+/** Singular of a plural word, enough for this catalog: "watches" → "watch", "shoes" → "shoe", "accessories" → "accessory". */
+const stem = (t) => {
+  if (t.length <= 3 || /(ss|us|is)$/.test(t)) return t;
+  if (/(x|z|ch|sh|ss)es$/.test(t)) return t.slice(0, -2);
+  if (/ies$/.test(t)) return `${t.slice(0, -3)}y`;
+  return t.endsWith('s') ? t.slice(0, -1) : t;
+};
+
+function haystack(p) {
+  const v = vendor(p.vendorId);
+  const cats = [...new Set([p.category, ...(p.path || [])])].map((id) => findCategory(id)).filter(Boolean)
+    .map(({ node, path }) => ({ words: words(label(node.name)), depth: path.length }));
+  return {
+    name: words(label(p.name)),
+    seller: words([vendorName(v), countryName(v?.country)].join(' ')),
+    cats,
+    alt: words(`${altText(p)} ${usAlt(altText(p))}`),
+    full: normalize(label(p.name))
+  };
+}
+
+/**
+ * Score of an offer for a query: every word must match its name, seller, seller country, one of its categories
+ * (the more specific the category, the higher) or, as a whole word, its image description.
+ */
+export function searchScore(p, q) {
+  const tokens = words(q);
+  if (!tokens.length) return 0;
+  const h = haystack(p);
+  const same = (w, t) => w === t || stem(w) === stem(t);
+  const begins = (w, t, min) => t.length >= min && w.startsWith(t);
+  let score = 0;
+  for (const t of tokens) {
+    const name = h.name.some((w) => same(w, t)) ? 4 : h.name.some((w) => begins(w, t, 3)) ? 3 : 0;
+    const cat = Math.max(0, ...h.cats.map((c) => (c.words.some((w) => same(w, t) || begins(w, t, 4)) ? 0.8 + 0.4 * c.depth : 0)));
+    const seller = h.seller.some((w) => same(w, t) || begins(w, t, 4)) ? 1.5 : 0;
+    const alt = h.alt.some((w) => same(w, t)) ? 1 : 0;
+    const s = Math.max(name, cat, seller, alt);
+    if (!s) return 0;
+    score += s;
+  }
+  return score + (h.full.includes(normalize(q)) ? 3 : 0);
+}
+
+/* The data now carries US English, except two image descriptions of art.js ("charcoal grey", "timber house"): they are
+ * corrected here until the source is. "Hardback" (data.js name and spec, art.js description) is left as it is on purpose:
+ * renamed here only, the same offer would carry another name in the toast, the header panels, the cart and the orders. */
+const US_ALT = [[/\bgrey\b/gi, 'gray'], [/\btimber house\b/gi, 'wood house']];
+export const usAlt = (text) => US_ALT.reduce((t, [re, to]) => t.replace(re, (w) => (w[0] === w[0].toUpperCase() ? `${to[0].toUpperCase()}${to.slice(1)}` : to)), String(text ?? ''));
+
 /* ---------- Cart (one cart, one payment, one shipment per seller) ---------- */
 
 export const cartCount = () => state.cart.reduce((sum, l) => sum + l.qty, 0);

@@ -67,7 +67,7 @@ function signedIn(params) {
       ${demoTag('Example account')}
     </div>
     <ul class="acc-links" role="list">
-      <li><a href="#/orders">${icon('receipt')}<span>${esc('My orders and requests')}</span>${icon('caretRight')}</a></li>
+      <li><a href="#/orders">${icon('receipt')}<span>${esc('My orders')}</span>${icon('caretRight')}</a></li>
       <li><a href="#/wishlist">${icon('heart')}<span>${esc('My saved offers')}</span>${icon('caretRight')}</a></li>
       <li><a href="#/cart">${icon('bag')}<span>${esc('My cart')}</span>${icon('caretRight')}</a></li>
     </ul>
@@ -84,7 +84,6 @@ function signInPage(ctx) {
   const a = state.account;
   const [title, soft] = a ? ['You’re signed in.', `Hello, ${firstName(a)}.`] : create ? ['Create an account.', 'For individual buyers.'] : ['Sign in.', 'Check out faster.'];
   const html = `<section class="acc" aria-labelledby="acc-title">
-    <div class="hero-light acc-light" aria-hidden="true"></div>
     <div class="wrap acc-wrap">
       <div class="acc-head">
         <p class="eyebrow" data-enter>${esc('DutyFreeDeal account')}</p>
@@ -99,7 +98,7 @@ function signInPage(ctx) {
       </div>`}
       <div class="acc-note" data-enter>${notice(esc('Simulated account: nothing is checked, the password is never kept, and nothing is sent. Only the name and email stay in this browser, to fill in the checkout.'), 'lock')}</div>
       <p class="acc-seller" data-enter>${esc(create ? 'Customer accounts are for individuals. Individuals and businesses who want to sell apply separately, after a verification.' : 'Selling on DutyFreeDeal?')}
-        <a class="more" href="#/sell">${esc('Become a seller')}${icon('arrow')}</a></p>
+        <a class="more" href="#/sell">${esc('Become a vendor')}${icon('arrow')}</a></p>
     </div>
   </section>`;
   return {

@@ -1,6 +1,5 @@
 /* Home sky: a gradient drawn in WebGL behind the dark chapters of the home page (hero, departments, large goods).
- * Several styles are on trial; a small "Background" bar on the home switches between them and remembers the choice.
- * Every style moves slowly by itself and answers the pointer, always eased over most of a second.
+ * The "Mesh" style was chosen on 18 October 2026: it moves slowly by itself and answers the pointer, always eased over most of a second.
  * Without WebGL the CSS gradient of .sky stays; with reduced motion the gradient is a still image. */
 
 const HEADER = `
@@ -79,14 +78,12 @@ void main() {
 }
 `;
 
-/* Each style: a name for the trial bar, the resolution it is drawn at (soft fields need little) and its colour field. */
-export const SKY_STYLES = [
-  {
-    id: 'mesh',
-    name: 'Mesh',
-    scale: 0.5,
-    /* A flowing field of the four brand colours; the pointer stirs the paint around itself and drags it along. */
-    glsl: `
+/* The sky drawn on the home: the resolution it is drawn at (a soft field needs little) and its colour field. */
+const MESH = {
+  id: 'mesh',
+  scale: 0.5,
+  /* A flowing field of the four brand colours; the pointer stirs the paint around itself and drags it along. */
+  glsl: `
 vec3 shade(vec2 p) {
   float t = uTime * 0.045;
   vec2 m = p - uMouse;
@@ -107,111 +104,8 @@ vec3 shade(vec2 p) {
   col = mix(vec3(0.05, 0.04, 0.12), col, mix(0.28, 0.92, top));
   return col * calm(p, 0.4);
 }`
-  },
-  {
-    id: 'spotlight',
-    name: 'Spotlight',
-    scale: 0.5,
-    /* Night, and one large soft light that follows the pointer; its colour changes across the screen. */
-    glsl: `
-vec3 shade(vec2 p) {
-  float hw = 0.5 * uRes.x / uRes.y;
-  vec2 rest = vec2(0.3 * sin(uTime * 0.05), 0.3 + 0.04 * sin(uTime * 0.083));
-  vec2 c = mix(rest, uMouse, uHold);
-  float side = 0.5 + 0.5 * clamp(c.x / hw, -1.0, 1.0);
-  vec2 d = (p - c) * vec2(0.85, 1.1);
-  float r2 = dot(d, d);
-  vec3 col = mix(vec3(0.03, 0.03, 0.05), vec3(0.07, 0.055, 0.15), smoothstep(-0.5, 0.5, p.y));
-  col += hues(side) * (0.5 * exp(-r2 / 0.17) + 0.16 * exp(-r2 / 0.025));
-  vec2 d2 = p - vec2(-0.75 * c.x, 0.46);
-  col += hues(1.0 - side) * 0.16 * exp(-dot(d2, d2) / 0.22);
-  return col * calm(p, 0.25);
-}`
-  },
-  {
-    id: 'prism',
-    name: 'Prism',
-    scale: 0.5,
-    /* A wide ring of spectral light around the slogan, slowly turning; it brightens on the side of the pointer. */
-    glsl: `
-vec3 cyclic(float h) {
-  h = fract(h) * 6.0;
-  vec3 c = mix(CYAN, VIOLET, smoothstep(0.0, 1.0, h));
-  c = mix(c, ROSE, smoothstep(1.0, 2.0, h));
-  c = mix(c, AMBER, smoothstep(2.0, 3.0, h));
-  c = mix(c, ROSE, smoothstep(3.0, 4.0, h));
-  c = mix(c, VIOLET, smoothstep(4.0, 5.0, h));
-  return mix(c, CYAN, smoothstep(5.0, 6.0, h));
-}
+};
 
-vec3 shade(vec2 p) {
-  vec2 c = vec2(uCalm.x, uCalm.y + uScroll - 0.06);
-  c += (uMouse - c) * 0.07 * uHold;
-  vec2 d = (p - c) * vec2(0.58, 1.18);
-  float r = length(d);
-  float ang = atan(d.y, d.x + 1e-4);
-  vec2 dm = (uMouse - c) * vec2(0.58, 1.18);
-  float facing = 0.5 + 0.5 * cos(ang - atan(dm.y, dm.x + 1e-4));
-  float k = (r - 0.37) / 0.15;
-  float ring = exp(-k * k);
-  float wob = 0.06 * fbm(vec2(cos(ang), sin(ang)) * 1.5 + uTime * 0.05);
-  vec3 hue = cyclic(ang / 6.2832 + uTime * 0.012 + wob);
-  float lift = mix(1.0, 0.45 + 1.1 * facing * facing, uHold);
-  vec3 col = mix(NIGHT, vec3(0.045, 0.04, 0.085), smoothstep(-0.5, 0.5, p.y));
-  col += hue * ring * 0.6 * lift;
-  col += hue * 0.07 * exp(-r * r / 0.4);
-  return col;
-}`
-  },
-  {
-    id: 'horizon',
-    name: 'Horizon',
-    scale: 0.6,
-    /* Dawn over a curved horizon under the search; the brightest point of the dawn follows the pointer. */
-    glsl: `
-vec3 shade(vec2 p) {
-  float hy = uBase + 0.03 + uScroll * 0.55;
-  float sx = mix(0.3 * sin(uTime * 0.04), uMouse.x, uHold);
-  float R = 3.0;
-  vec2 cc = vec2(0.06 * sx, hy - R);
-  float dist = length(p - cc) - R;
-  float dx = p.x - sx;
-  float sun = exp(-dx * dx / 0.2);
-  vec3 hue = mix(mix(VIOLET, CYAN, 0.35), mix(ROSE, AMBER, 0.4), sun);
-  float up = max(dist, 0.0);
-  vec3 col = mix(vec3(0.03, 0.03, 0.06), vec3(0.1, 0.07, 0.22), exp(-up / 0.45));
-  col += hue * (0.16 + 0.55 * sun) * exp(-up / 0.11);
-  col += hue * 0.25 * (0.3 + 0.7 * sun) * exp(-up / 0.03);
-  if (dist < 0.0) col = mix(vec3(0.018, 0.018, 0.026), hue * 0.1, exp(dist / 0.06));
-  col += mix(hue, vec3(1.0), 0.4) * (0.12 + 0.88 * sun) * exp(-dist * dist / 0.000025);
-  return col * calm(p, 0.2);
-}`
-  },
-  {
-    id: 'velvet',
-    name: 'Velvet',
-    scale: 1,
-    /* A deep diagonal dusk, indigo to rose to amber, with film grain; the light pool and the angle lean toward the pointer. */
-    glsl: `
-vec3 shade(vec2 p) {
-  float hw = 0.5 * uRes.x / uRes.y;
-  vec2 lean = (uMouse - vec2(0.0, 0.1)) * uHold;
-  vec2 dir = normalize(vec2(1.0, -0.85) + lean * 0.35);
-  vec2 q = p - vec2(0.0, uScroll * 0.2);
-  float g = 0.5 + 0.5 * dot(q, dir) / (hw * abs(dir.x) + 0.5 * abs(dir.y));
-  g += 0.1 * fbm(p * 1.3 + vec2(uTime * 0.012, -uTime * 0.008));
-  vec3 col = mix(vec3(0.06, 0.045, 0.17), vec3(0.2, 0.09, 0.4), smoothstep(0.0, 0.42, g));
-  col = mix(col, vec3(0.45, 0.1, 0.26), smoothstep(0.38, 0.74, g));
-  col = mix(col, vec3(0.62, 0.3, 0.12), smoothstep(0.72, 1.05, g));
-  vec2 d = p - mix(vec2(-0.35, 0.4), uMouse, uHold * 0.8);
-  col *= (0.5 + 0.8 * exp(-dot(d, d) / 0.3)) * calm(p, 0.3);
-  return col + hash2(gl_FragCoord.xy).x * 0.03;
-}`
-  },
-  { id: 'black', name: 'Black', scale: 0, glsl: '' }
-];
-
-const KEY = 'dutyfreedeal-studio-sky';
 const STILL = 42;
 const UNIFORMS = ['uRes', 'uTime', 'uMouse', 'uVel', 'uHold', 'uScroll', 'uCalm', 'uBase', 'uTop'];
 
@@ -219,18 +113,6 @@ const born = performance.now();
 const s = { mx: 0, my: 0.2, tx: 0, ty: 0.2, vx: 0, vy: 0, tvx: 0, tvy: 0, hold: 0, holdTo: 0, moved: 0 };
 const layout = { calm: [0, 0.2, 0.6, 0.12], base: -0.15, top: 0.38 };
 let engine = null;
-
-function readStyle() {
-  try {
-    const id = localStorage.getItem(KEY);
-    if (SKY_STYLES.some((style) => style.id === id)) return id;
-  } catch { /* storage unavailable: the first style */ }
-  return SKY_STYLES[0].id;
-}
-
-function saveStyle(id) {
-  try { localStorage.setItem(KEY, id); } catch { /* the choice lasts for this visit only */ }
-}
 
 function compile(gl, type, source) {
   const shader = gl.createShader(type);
@@ -357,20 +239,10 @@ function measure() {
   if (header) layout.top = 0.5 - (header.getBoundingClientRect().bottom + y) / H;
 }
 
-/** Markup of the trial bar that switches between the styles. */
-export function skySwitch() {
-  const current = readStyle();
-  return `<div class="sky-test" role="group" aria-label="Background trial" data-sky-test>
-    <span class="sky-test-label" aria-hidden="true">Background</span>
-    ${SKY_STYLES.map((style) => `<button type="button" data-sky-style="${style.id}" aria-pressed="${style.id === current}">${style.name}</button>`).join('')}
-  </div>`;
-}
-
-/** Starts the sky inside `host` (the .sky layer of the home page), wires the trial bar, and returns the function that stops both. */
-export function mountSky(host, bar) {
+/** Starts the sky inside `host` (the .sky layer of the home page) and returns the function that stops it. */
+export function mountSky(host) {
   if (!host) return () => {};
-  let style = SKY_STYLES.find((item) => item.id === readStyle());
-  host.dataset.style = style.id;
+  const style = MESH;
   if (!engine) engine = createEngine();
   const canvas = engine?.canvas;
   if (canvas) host.append(canvas);
@@ -380,7 +252,7 @@ export function mountSky(host, bar) {
   let raf = 0;
   let last = 0;
 
-  const live = () => Boolean(engine) && !engine.lost && style.scale > 0;
+  const live = () => Boolean(engine) && !engine.lost;
   const fit = () => {
     const w = Math.max(1, Math.round(window.innerWidth * style.scale));
     const h = Math.max(1, Math.round(window.innerHeight * style.scale));
@@ -416,21 +288,6 @@ export function mountSky(host, bar) {
   };
   if (engine) engine.resume = resume;
 
-  const choose = (id) => {
-    const next = SKY_STYLES.find((item) => item.id === id);
-    if (!next || next === style) return;
-    style = next;
-    host.dataset.style = id;
-    saveStyle(id);
-    bar?.querySelectorAll('[data-sky-style]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.skyStyle === id)));
-    stop();
-    resume();
-  };
-  const onBar = (event) => {
-    const button = event.target.closest('[data-sky-style]');
-    if (button) choose(button.dataset.skyStyle);
-  };
-
   const onMove = (event) => {
     if (event.pointerType === 'touch' || reduce.matches) return;
     const H = window.innerHeight;
@@ -464,7 +321,6 @@ export function mountSky(host, bar) {
 
   measure();
   document.fonts?.ready.then(measure);
-  bar?.addEventListener('click', onBar);
   window.addEventListener('pointermove', onMove, { passive: true });
   document.documentElement.addEventListener('pointerleave', onLeave);
   window.addEventListener('blur', onLeave);
@@ -475,7 +331,6 @@ export function mountSky(host, bar) {
   return () => {
     stop();
     io.disconnect();
-    bar?.removeEventListener('click', onBar);
     window.removeEventListener('pointermove', onMove);
     document.documentElement.removeEventListener('pointerleave', onLeave);
     window.removeEventListener('blur', onLeave);

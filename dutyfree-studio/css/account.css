@@ -1,7 +1,6 @@
-/* DutyFreeDeal Studio: example customer account (sign in, create an account, signed in). One column on the stage light. */
+/* DutyFreeDeal Studio: example customer account (sign in, create an account, signed in). One column. */
 
 .acc { position: relative; isolation: isolate; overflow: hidden; padding: clamp(48px, 9vh, 104px) 0 clamp(96px, 14vh, 144px); }
-.acc-light { top: 64%; height: 340px; opacity: 0.26; }
 .acc-wrap { display: grid; justify-items: center; width: min(100% - 2 * var(--pad), 460px); }
 
 .acc-head { margin-bottom: 32px; text-align: center; }

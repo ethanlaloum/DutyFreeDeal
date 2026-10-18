@@ -76,14 +76,13 @@ const imageCaption = (p) => (GENERATED.has(modelKey(p)) ? 'Generated illustratio
 
 /* The open decisions, shared by the overview (short label) and the settings page. Nothing here is decided or calculated. */
 const OPEN = [
-  ['Source of the price advantage', 'Price advantage source', 'How parallel trade creates the price advantage, through which product flows and which suppliers.'],
-  ['The “15% net of the global price” commission', 'Commission basis', 'Its basis, when it is charged, how delivery and returns are treated, and when sellers are paid.'],
-  ['Seller membership', 'Seller membership', 'Its price, its conditions, and whether it is mandatory for individuals and for businesses.'],
-  ['Country-specific checks', 'Country checks', 'The KYC or KYB documents, the enhanced checks and the bank verification required in each seller country.'],
-  ['Shipping delays', 'Shipping delays', 'The shipping commitment, when a delay triggers a penalty, and how that penalty is calculated.'],
-  ['Customer support', 'Customer support', 'Who the buyer contacts first after a purchase, who settles a dispute, and who decides on returns and refunds.'],
-  ['Large goods', 'Large goods', 'The difference between a quote and a reservation, the steps, the confirmation and the later payment.'],
-  ['Prices and destinations', 'Prices by country', 'Currencies, how the final price is shown in each country, and delivery arrangements per seller. France, Spain, the United States and Mexico are example markets.']
+  ['Source of the price advantage', 'Price advantage source', 'Which sellers, supply routes and parallel trade create the price advantage, shown on real products with real figures.'],
+  ['The “15% net of the global price” commission', 'Commission basis', 'Its basis, product only or with delivery, who pays the payment fees, and how returns and cancellations are treated.'],
+  ['Seller membership', 'Seller membership', 'Whether it is mandatory, its price and period, and what differs between individuals and businesses.'],
+  ['Late shipping penalty', 'Late penalty', 'A late shipment already lets the buyer cancel free of charge and counts against the seller. Open: whether a financial penalty is added, and its amount.'],
+  ['Large goods payment', 'Large goods', 'Whether DutyFreeDeal takes the payment, a deposit then the balance, or only puts buyer and seller in touch.'],
+  ['Company and domain name', 'Company', 'The country and form of the company and the domain name, which set the payment provider and the terms of sale.'],
+  ['Target price gap', 'Price gap', 'How far below the local price an offer must be for the promise to feel credible, and whether a comparison with the local price is shown.']
 ];
 const num2 = (i) => String(i + 1).padStart(2, '0');
 
@@ -281,7 +280,7 @@ function overview(ctx) {
 
   const definition = `<section class="card surface-light adm-card adm-definition" aria-labelledby="adm-definition-title" data-reveal>
     <div class="card-head"><h2 class="title-s" id="adm-definition-title">Commercial definition</h2>${chip(`${OPEN.length} open decisions`, 'neutral')}</div>
-    <p class="adm-text">The commission, the seller membership, country-specific checks, shipping delays and customer support are still to be defined with Vito. This prototype calculates no commission, membership fee or penalty.</p>
+    <p class="adm-text">The price advantage, the commission, the seller membership, a late-shipping penalty, payment for large goods, the company and the target price gap are still open. This prototype calculates no commission, membership fee or penalty.</p>
     <ol class="adm-decisions" role="list">${OPEN.map(([, short], i) => `<li><span class="adm-num" aria-hidden="true">${num2(i)}</span>${esc(short)}</li>`).join('')}</ol>
     <a class="more" href="#/admin/settings">See the open decisions${icon('arrow')}</a>
   </section>`;
@@ -303,7 +302,7 @@ function overview(ctx) {
     <div class="adm-dest-intro">
       <h2 class="title-s" id="adm-dest-title">Offers by destination</h2>
       <p class="adm-text">Each national catalog brings together the offers from around the world that their sellers deliver to that country.</p>
-      <p class="adm-note">${icon('info')}<span>Example markets, not confirmed launch countries. Every amount is an example in euros.</span></p>
+      <p class="adm-note">${icon('info')}<span>Four example countries; the platform opens to every country. Every amount is an example in euros.</span></p>
     </div>
     <ul class="adm-bars" role="list">${dest.map((d) => `<li>
       <span class="adm-bar-name">${esc(countryName(d.code))}</span>
@@ -370,13 +369,13 @@ function sellers(ctx) {
 
   const applications = `<section class="adm-section adm-section--first" aria-labelledby="adm-apps-title">
     ${sectionHead('adm-apps-title', 'Applications submitted in this prototype',
-      apps.length ? esc(`${plural(apps.length, 'application', 'applications')} from the Become a seller page, ${pending ? `${pending} awaiting review` : 'none awaiting review'}.`) : 'Applications sent from the Become a seller page appear here, in this browser only.',
+      apps.length ? esc(`${plural(apps.length, 'application', 'applications')} from the Become a vendor page, ${pending ? `${pending} awaiting review` : 'none awaiting review'}.`) : 'Applications sent from the Become a vendor page appear here, in this browser only.',
       apps.length ? '<a class="btn btn--secondary btn--small" href="#/sell">Simulate an application</a>' : '')}
     ${apps.length ? `<ul class="adm-apps" role="list">${apps.map(applicationCard).join('')}</ul>
-    <div class="adm-after" data-reveal>${notice('No identity document, bank detail or company document is collected. The checks required in each seller country remain to be defined with Vito.', 'shield')}</div>` : emptyBlock({
+    <div class="adm-after" data-reveal>${notice('No identity document, bank detail or company document is collected. In the real platform, the payment provider runs these checks under each country’s rules.', 'shield')}</div>` : emptyBlock({
       iconName: 'idCard',
       title: 'No application yet',
-      text: 'Fill in the Become a seller form with fictional details: the application lands here, ready for a simulated approval or a request for details.',
+      text: 'Fill in the Become a vendor form with fictional details: the application lands here, ready for a simulated approval or a request for details.',
       actions: '<a class="btn btn--primary btn--small" href="#/sell">Simulate an application</a>'
     })}
   </section>`;
@@ -588,7 +587,7 @@ function ordersView(ctx) {
         ${sectionHead('adm-orders-title', esc(plural(orders.length, 'simulated order', 'simulated orders')),
           esc(`${plural(shipments.length, 'seller shipment', 'seller shipments')}, ${delivered} delivered. Most recent first.`), '', 'title-s')}
         <ol class="adm-orders" role="list">${orders.map(orderCard).join('')}</ol>
-        <div class="adm-after" data-reveal>${notice('Demonstration shipments and statuses. Shipping times, delay penalties and their calculation remain to be defined with Vito.', 'truck')}</div>
+        <div class="adm-after" data-reveal>${notice('Demonstration shipments and statuses. A late shipment lets the buyer cancel free of charge; whether a financial penalty is added is still open.', 'truck')}</div>
       </section>`
     : emptyBlock({
       iconName: 'receipt',
@@ -671,7 +670,7 @@ function requestsView(ctx) {
   const body = list.length
     ? `<section class="adm-section adm-section--first" aria-labelledby="adm-requests-title">
         ${sectionHead('adm-requests-title', esc(plural(list.length, 'request', 'requests')),
-          esc(`${fresh ? `${fresh} new` : 'All reviewed'}, most recent first. The exact steps remain to be defined with Vito.`), '', 'title-s')}
+          esc(`${fresh ? `${fresh} new` : 'All reviewed'}, most recent first. Whether DutyFreeDeal takes the payment for large goods is still open.`), '', 'title-s')}
         <ol class="adm-requests" role="list">${list.map(requestCard).join('')}</ol>
       </section>`
     : emptyBlock({
@@ -694,27 +693,33 @@ function requestsView(ctx) {
 
 const AGREED = [
   ['Buyers', 'Consumers only, at launch.'],
-  ['Sellers', 'Individuals and businesses, after KYC or KYB verification.'],
+  ['Sellers', 'Individuals and businesses, after KYC or KYB verification by the payment provider.'],
+  ['Countries', 'Every country, for buyers and sellers, except those under international sanctions.'],
   ['Products', 'New physical goods only, at launch.'],
   ['Catalog', 'Every offer worldwide that delivers to the selected country.'],
   ['Payment', 'One cart and one payment, then one shipment per seller.'],
   ['Stock and shipping', 'Each seller manages their own stock and ships their own orders.'],
   ['Presentation', 'One listing per seller offer, delivery shown separately.'],
+  ['Currencies', 'Prices in the currency of the delivery country; each seller is paid in their own.'],
+  ['Advertising', 'A brand or seller can pay to appear at the top of search results, marked “Sponsored”.'],
+  ['Customer support', 'The seller answers first; DutyFreeDeal settles a claim after 48 hours.'],
+  ['Returns', 'As the law requires, at least 14 days with a business seller in Europe.'],
+  ['Seller payouts', 'Every two weeks, for orders delivered at least 7 days earlier.'],
   ['Site language', 'English.']
 ];
 
 function settings(ctx) {
   const agreed = `<section class="adm-section adm-section--first" aria-labelledby="adm-agreed-title">
-    ${sectionHead('adm-agreed-title', 'The agreed framework', 'Decisions already taken. The prototype follows them on every page.')}
+    ${sectionHead('adm-agreed-title', 'The agreed framework', 'Decisions already taken. Advertising and the opening to every country are not shown in this prototype yet.')}
     <div class="card surface-light adm-card adm-agreed-card" data-reveal>
       <dl class="adm-agreed">${AGREED.map(([term, text]) => `<div><dt>${icon('checkCircle')}<span>${esc(term)}</span></dt><dd>${esc(text)}</dd></div>`).join('')}</dl>
     </div>
   </section>`;
 
   const open = `<section class="adm-section" aria-labelledby="adm-open-title">
-    ${sectionHead('adm-open-title', 'Open decisions', esc(`${OPEN.length} questions to settle with Vito. Nothing here is decided or calculated.`))}
+    ${sectionHead('adm-open-title', 'Open decisions', esc(`${OPEN.length} questions still open. The rule for Hard to find will be set later. Nothing here is decided or calculated.`))}
     <ol class="adm-open" role="list">${OPEN.map(([title, , text], i) => `<li class="card surface-light adm-card adm-decision" data-reveal>
-      <div class="adm-decision-top"><span class="adm-num" aria-hidden="true">${num2(i)}</span>${chip('To define with Vito', 'neutral')}</div>
+      <div class="adm-decision-top"><span class="adm-num" aria-hidden="true">${num2(i)}</span>${chip('Open', 'neutral')}</div>
       <h3 class="title-s adm-decision-title">${esc(title)}</h3>
       <p class="adm-text">${esc(text)}</p>
     </li>`).join('')}</ol>
@@ -732,8 +737,8 @@ function settings(ctx) {
 
   const html = workspace({
     kind: 'admin',
-    title: 'Decisions to make with Vito',
-    lead: 'What is agreed, and what remains open. The prototype calculates no commission, membership fee or penalty.',
+    title: 'Decisions',
+    lead: 'What is decided, and what remains open. The prototype calculates no commission, membership fee or penalty.',
     body: agreed + open + reset
   });
   return page(docTitle('Open decisions'), html, (main) => bind(main, ctx));

@@ -9,7 +9,7 @@ import { searchForm } from '../ui/search.js';
 import { LARGE, MAIN, BLEED } from '../art.js';
 import { revealNow, RISE, RISE_TO, motionOK } from '../ui/motion.js';
 import { announce } from '../ui/feedback.js';
-import { mountSky, skySwitch } from '../ui/sky.js';
+import { mountSky } from '../ui/sky.js';
 
 /* The former hero showcase, deliberately not featured again on the home. */
 const HOME_AVOID = new Set(['perfume', 'headphones', 'camera']);
@@ -110,7 +110,6 @@ function hero() {
       </h1>
       <p class="hero-pitch" data-enter>${esc('Discover deals from around the world and hard-to-find products, delivered to your home.')}</p>
       <div class="hero-search" data-enter>
-        <span class="hero-light" aria-hidden="true"></span>
         ${searchForm('hero', {
           labelText: `${esc('Search the offers delivering')} <strong data-dest-in>${esc(countryIn(state.country))}</strong>`,
           placeholder: 'Fragrance, headphones, suitcase, department…'
@@ -321,7 +320,7 @@ function sell() {
       <h2 class="title-xl" id="sell-title" data-reveal>${esc('Sell beyond your country.')}</h2>
       <div data-reveal>
         <p class="lead">${esc('Individuals and businesses, after a verification adapted to the seller’s country: KYC for individuals, KYB for businesses. Procedure simulated in this prototype.')}</p>
-        <a class="btn btn--primary" href="#/sell">${esc('Become a seller')}</a>
+        <a class="btn btn--primary" href="#/sell">${esc('Become a vendor')}</a>
       </div>
     </div>
   </section>`;
@@ -331,7 +330,7 @@ function sell() {
 
 export function home() {
   seen = new Set();
-  const html = [hero(), aisles(), facts(), promises(), world(), oneCart(), bigGoods(), sell(), skySwitch()].join('');
+  const html = [hero(), aisles(), facts(), promises(), world(), oneCart(), bigGoods(), sell()].join('');
   return {
     title: 'DutyFreeDeal · Buy Duty Free, without going through the airport',
     surface: 'dark',
@@ -339,7 +338,7 @@ export function home() {
     html,
     mount(main) {
       fitSubs(main);
-      const stopSky = mountSky(main.querySelector('[data-sky]'), main.querySelector('[data-sky-test]'));
+      const stopSky = mountSky(main.querySelector('[data-sky]'));
       const onClick = (event) => {
         const chipBtn = event.target.closest('[data-chip]');
         if (!chipBtn || chipBtn.dataset.chip === worldFilter) return;

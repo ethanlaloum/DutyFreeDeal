@@ -117,17 +117,17 @@ export function footerHtml() {
         <li><a href="${catalogHref({ collection: 'rare' })}">${esc('Hard to find')}</a></li>
         <li><a href="#/wishlist">${esc('My saved offers')}</a></li>
         <li><a href="#/cart">${esc('My cart')}</a></li>
-        <li><a href="#/orders">${esc('My orders and requests')}</a></li>
+        <li><a href="#/orders">${esc('My orders')}</a></li>
       </ul></div>
       <div><h2>${esc('Sell')}</h2><ul role="list">
-        <li><a href="#/sell">${esc('Become a seller')}</a></li>
+        <li><a href="#/sell">${esc('Become a vendor')}</a></li>
         <li><a href="#/seller">${esc('Seller workspace (demo)')}</a></li>
       </ul></div>
       <div><h2>${esc('Prototype')}</h2><ul role="list">
         <li><a href="#/admin">${esc('Back office (demo)')}</a></li>
         <li><a href="#/credits">${esc('About, sources and licenses')}</a></li>
       </ul></div>
-      <p class="footer-demo">${esc('Demonstration prototype: fictional products, sellers and prices, no real transactions. Example prices in euros; France, Spain, the United States and Mexico are example markets.')}</p>
+      <p class="footer-demo">${esc('Demonstration prototype: fictional products, sellers and prices, no real transactions. Example prices in euros; four example countries, while the platform opens to every country.')}</p>
     </div>
   </div>`;
 }
@@ -215,7 +215,7 @@ function renderAccount() {
       <span class="demo-tag">${esc('Example account')}</span>
     </div>
     <ul class="acct-links" role="list">
-      <li><a href="#/orders">${icon('receipt')}${esc('My orders and requests')}</a></li>
+      <li><a href="#/orders">${icon('receipt')}${esc('My orders')}</a></li>
       <li><a href="#/wishlist">${icon('heart')}${esc('My saved offers')}</a></li>
       <li><a href="#/cart">${icon('bag')}${esc('My cart')}</a></li>
     </ul>

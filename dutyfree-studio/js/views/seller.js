@@ -145,7 +145,7 @@ function parseUnits(raw) {
   return n <= 100000 ? n : null;
 }
 
-/* ---------- Become a seller (public page) ---------- */
+/* ---------- Become a vendor (public page) ---------- */
 
 let submitted = null;
 
@@ -161,8 +161,8 @@ const VERIFY = {
     kicker: 'KYB verification · business',
     title: (c) => `Selling as a business ${countryAt(c)}`,
     lead: 'KYB, “know your business”, confirms which business is selling before any offer goes live.',
-    covers: ['The business that sells'],
-    open: ['Representatives and owners: to be defined']
+    covers: ['The business that sells', 'Its representatives and owners'],
+    open: []
   }
 };
 
@@ -185,10 +185,10 @@ function infoHtml(type, country) {
     <ul class="sel-info-list" role="list">
       ${t.covers.map((c) => `<li>${icon('check')}<span>${esc(c)}</span></li>`).join('')}
       ${t.open.map((c) => `<li class="is-open">${icon('idCard')}<span>${esc(c)}</span></li>`).join('')}
-      <li class="is-open">${icon('bank')}<span>${esc('Bank verification: to be defined')}</span></li>
+      <li>${icon('check')}<span>${esc('The bank account that receives the payouts')}</span></li>
     </ul>
     <h4 class="sel-info-h">${esc(`For a seller ${countryAt(country)}`)}</h4>
-    <p class="sel-info-text">${esc('Exact documents, enhanced checks and verification times depend on country rules still to be defined.')}</p>
+    <p class="sel-info-text">${esc('Documents, enhanced checks and verification times follow the rules of the seller’s country, applied by the payment provider.')}</p>
     <div class="sel-info-foot">
       <p class="sel-info-lock">${icon('lock')}<span>${esc('No identity document, bank number or company document is requested.')}</span></p>
       <p class="sel-info-sim">${demoTag('Simulated')}<span>${esc('Nothing is checked or sent in this prototype.')}</span></p>
@@ -240,7 +240,7 @@ function hero() {
 /* Each step reads as one run-in sentence, like the facts of the home page. */
 const STEPS = [
   ['Seller profile.', 'You sell as an individual or as a business, from your seller country.'],
-  ['KYC or KYB verification.', 'Your identity for an individual, your business for a company. Bank verification is still to be defined.'],
+  ['KYC or KYB verification.', 'Your identity for an individual, your business for a company, and the bank account that receives your payouts.'],
   ['Approval.', 'A simulated approval in the back office. Then you publish your offers, manage your stock and ship your orders.']
 ];
 
@@ -280,7 +280,7 @@ function applicationForm() {
       <div class="sel-pills">
         ${countries.map((c) => `<label class="sel-pill"><input type="radio" name="country" value="${esc(c.code)}"${c.code === country ? ' checked' : ''}><span>${esc(label(c.name))}</span></label>`).join('')}
       </div>
-      <p class="help sel-fieldset-help" id="sel-country-help">${esc('The country you sell and ship from sets the verification rules. These four are example countries: launch countries are not decided.')}</p>
+      <p class="help sel-fieldset-help" id="sel-country-help">${esc('The country you sell and ship from sets the verification rules. These four are examples: the platform will accept sellers from every country.')}</p>
     </fieldset>
     <div class="form-grid">
       ${textInput({ id: 'sel-name', name: 'sellerName', text: NAME_LABEL.individual })}
@@ -346,7 +346,7 @@ function application() {
 function sell(ctx) {
   if (ctx.reason === 'route') submitted = null;
   return {
-    title: 'Become a seller · DutyFreeDeal',
+    title: 'Become a vendor · DutyFreeDeal',
     surface: 'light',
     html: hero() + steps() + application(),
     mount: (main) => mountSell(main, ctx)
@@ -527,12 +527,12 @@ function workspacePage(ctx, { name, title, lead, actions = '', body, mount, resc
 
 /* ---------- Dashboard ---------- */
 
-/* Four of the open decisions, numbered as in the back office's list of decisions to make with Vito. */
+/* Four of the open decisions, numbered as in the back office's list. */
 const RULES = [
-  ['02', 'Commission', 'What does “15% net of the global price” cover: which amounts form its basis, and is it a gross commission or net revenue?'],
+  ['02', 'Commission', 'What does “15% net of the global price” cover, product only or with delivery, and who pays the payment fees?'],
   ['03', 'Seller membership', 'Is it mandatory, what does it cost, when is it paid, and does it differ for individuals and businesses?'],
-  ['05', 'Shipping delays', 'Which shipping time commits the seller, when does a delay trigger a penalty, and how is it calculated?'],
-  ['06', 'Customer support', 'Who is the buyer’s first contact, the seller or DutyFreeDeal, and who settles a dispute?']
+  ['04', 'Late shipping penalty', 'A late shipment already lets the buyer cancel free of charge. Is a financial penalty added, and how much?'],
+  ['05', 'Large goods payment', 'After a quote, does the payment go through DutyFreeDeal, or does the seller collect it?']
 ];
 
 function tile(p) {
@@ -597,7 +597,7 @@ function dashboard(ctx) {
           <div><dt>${esc('Seller country')}</dt><dd>${esc(countryName(v.country))}</dd></div>
           <div><dt>${esc('Seller type')}</dt><dd>${esc(typeText(v))}</dd></div>
           <div><dt>${esc('Verification')}</dt><dd>${esc(v.type === 'individual' ? 'KYC · identity, simulated' : 'KYB · business, simulated')}</dd></div>
-          <div><dt>${esc('Bank verification')}</dt><dd>${esc('To be defined')}</dd></div>
+          <div><dt>${esc('Bank verification')}</dt><dd>${esc('By the payment provider, simulated')}</dd></div>
         </dl>
         <a class="more sel-card-more" href="#/sell">${esc('How verification works')}${icon('arrow')}</a>
       </section>
@@ -614,7 +614,7 @@ function dashboard(ctx) {
     </section>
     <section class="card surface-light sel-rules" aria-labelledby="sel-rules-title" data-reveal>
       <div class="card-head">
-        <div><h2 class="title-s" id="sel-rules-title">${esc('Rules to define with Vito')}</h2>
+        <div><h2 class="title-s" id="sel-rules-title">${esc('Rules still open')}</h2>
           <p class="sel-card-lead">${esc('Open questions, numbered as in the back office. Nothing is calculated in this prototype.')}</p></div>
         <a class="more" href="#/admin/settings">${esc('See every open decision')}${icon('arrow')}</a>
       </div>
@@ -1011,7 +1011,7 @@ function shipments(ctx) {
       <p class="sel-card-lead">${esc(`${byStatus}. Most recent first.`)}</p>
     </div>
     <ul class="sel-ships" role="list">${list.map(({ o, s }) => shipmentCard(o, s)).join('')}</ul>
-    <div class="sel-foot-note" data-reveal>${notice(esc('Promised shipping times, delay penalties and their calculation remain to be defined with Vito.'), 'clock')}</div>`
+    <div class="sel-foot-note" data-reveal>${notice(esc('A late shipment lets the buyer cancel free of charge and counts against the seller. Whether a financial penalty is added is still open.'), 'clock')}</div>`
     : emptyShipments(v);
 
   return workspacePage(ctx, {

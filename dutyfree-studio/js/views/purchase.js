@@ -877,9 +877,9 @@ function orders(ctx) {
   const list = [...state.orders].sort(byDateDesc);
   const requests = [...state.requests].sort(byDateDesc);
   const placed = placedId ? state.orders.find((o) => o.id === placedId) : null;
-  const title = docTitle('My orders and requests');
+  const title = docTitle('My orders');
   const head = pageHead({
-    title: esc('My orders and requests'),
+    title: esc('My orders'),
     lead: esc('Your orders and your quote or reservation requests from this demonstration, kept on this device.'),
     meta: demoTag('Demonstration data')
   });

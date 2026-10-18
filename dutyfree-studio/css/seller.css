@@ -1,7 +1,7 @@
 /* DutyFreeDeal Studio: seller pages. Becoming a seller (public page), then the seller workspace:
  * overview, offers and stock, shipments. Colors come only from the surface variables and the status chips. */
 
-/* ---------- Become a seller: hero with an example listing ---------- */
+/* ---------- Become a vendor: hero with an example listing ---------- */
 
 .sel-hero { padding: clamp(48px, 8vh, 96px) 0 clamp(80px, 12vh, 128px); overflow: hidden; }
 .sel-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 80px); align-items: center; }
@@ -56,7 +56,7 @@
   .sel-listing-media { aspect-ratio: 5 / 2; }
 }
 
-/* ---------- Become a seller: three steps, one run-in sentence each (the facts idiom of the home page) ---------- */
+/* ---------- Become a vendor: three steps, one run-in sentence each (the facts idiom of the home page) ---------- */
 
 /* One three-column system with the 20 px grid gap below the hero: the lead, step 3 and the verification card share an edge. */
 .sel-steps { padding: 104px 0 112px; }
@@ -69,7 +69,7 @@
 .sel-step-title, .sel-step p { display: inline; font-size: inherit; font-weight: 600; }
 .sel-step p { color: var(--fg-2); }
 
-/* ---------- Become a seller: application ---------- */
+/* ---------- Become a vendor: application ---------- */
 
 .sel-apply { padding: 120px 0 136px; }
 .sel-apply .section-head { margin-bottom: 48px; }

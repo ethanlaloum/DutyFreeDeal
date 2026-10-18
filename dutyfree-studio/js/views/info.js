@@ -23,12 +23,12 @@ function credits() {
     <div class="info-grid">
       <section class="card" aria-labelledby="simulated-title" data-reveal>
         <h2 class="title-s" id="simulated-title">What is simulated</h2>
-        <p>All products, sellers, prices, stock levels, delivery times, verifications and statuses are examples. France, Spain, the United States and Mexico illustrate browsing by delivery destination; they are not a confirmed list of launch countries. Prices are example amounts in euros for every market.</p>
+        <p>All products, sellers, prices, stock levels, delivery times, verifications and statuses are examples. France, Spain, the United States and Mexico illustrate browsing by delivery destination; the platform itself will open to every country. Prices are example amounts in euros for every market.</p>
         <p>No payment, identity document, bank detail or message is ever transmitted. Demonstration data is kept only in this browser, when its storage is available.</p>
       </section>
       <section class="card" aria-labelledby="open-title" data-reveal>
-        <h2 class="title-s" id="open-title">What remains to be defined</h2>
-        <p>The source of the price advantage, the commission and seller membership, country-specific seller checks, shipping commitments, customer support, returns and currencies are still open decisions. The prototype calculates no commission, fee or penalty, and makes no claim about taxes or customs.</p>
+        <h2 class="title-s" id="open-title">What remains open</h2>
+        <p>The source of the price advantage, the commission, the seller membership, a possible late-shipping penalty, payment for large goods, the company and the target price gap are still open. The prototype calculates no commission, fee or penalty, and makes no claim about taxes or customs.</p>
         <a class="more" href="#/admin/settings">See the open decisions${icon('arrow')}</a>
       </section>
     </div>

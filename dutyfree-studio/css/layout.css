@@ -353,13 +353,18 @@ input[type='search']::-webkit-search-decoration { -webkit-appearance: none; appe
 
 /* ---------- Narrow screens (structure only) ---------- */
 
+/* Every entry stays visible down to 1190 px (1280 × 800 laptops included); the search narrows first. */
 @media (max-width: 1360px) {
-  .nav-link[data-sell] { display: none; }
   .header-search { width: 240px; }
 }
 @media (max-width: 1240px) {
-  .nav-link[data-optional] { display: none; }
   .header-search { width: 200px; }
+}
+@media (max-width: 1190px) {
+  .nav-link[data-sell] { display: none; }
+}
+@media (max-width: 1130px) {
+  .nav-link[data-optional] { display: none; }
 }
 @media (max-width: 1100px) {
   .footer-cols { grid-template-columns: 1fr 1fr; }

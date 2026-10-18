@@ -1,5 +1,5 @@
 /* Search fields with suggestions (departments, categories, offers), shared draft, keyboard combobox. */
-import { label, esc, icon, normalize, categories, shopOffers, vendor, vendorName, countryName, money, productHref, catalogHref, go, plural } from '../core.js';
+import { label, esc, icon, normalize, categories, shopOffers, searchScore, vendor, vendorName, money, productHref, catalogHref, go, plural } from '../core.js';
 import { thumb } from './components.js';
 import { announce } from './feedback.js';
 
@@ -27,14 +27,10 @@ function categoryMatches(q) {
   return found.sort((a, b) => Number(b.starts) - Number(a.starts) || a.path.length - b.path.length).slice(0, 3);
 }
 
-function offerMatches(q) {
+/** The first offers of the results page for the same words: one scoring for both (searchScore). */
+function offerMatches(raw) {
   return shopOffers()
-    .map((p) => {
-      const v = vendor(p.vendorId);
-      const name = normalize(label(p.name));
-      const hay = normalize([label(p.name), vendorName(v), countryName(v.country)].join(' '));
-      return { p, score: name.startsWith(q) ? 3 : name.includes(q) ? 2 : hay.includes(q) ? 1 : 0 };
-    })
+    .map((p) => ({ p, score: searchScore(p, raw) }))
     .filter((m) => m.score > 0)
     .sort((a, b) => b.score - a.score || a.p.price - b.p.price)
     .slice(0, 4)
@@ -53,7 +49,7 @@ function suggestions(raw) {
       items.push({ href: catalogHref({ category: c.node.id }), html: `${icon(c.path.length === 1 ? 'squares' : 'caretRight', 'suggest-icon')}<span><span>${highlight(label(c.node.name), q)}</span>${trail ? `<span class="suggest-sub">${esc(trail)}</span>` : ''}</span>` });
     }
   }
-  const offers = offerMatches(q);
+  const offers = offerMatches(raw);
   if (offers.length) {
     items.push({ group: 'Offers' });
     for (const p of offers) {

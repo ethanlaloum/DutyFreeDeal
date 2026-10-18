@@ -9,7 +9,7 @@
 .acc-card {
   width: 100%;
   padding: 20px 28px 24px;
-  background: rgba(22, 22, 24, 0.8);
+  background: rgba(11, 34, 53, 0.8);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   box-shadow: var(--shadow);

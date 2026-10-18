@@ -19,11 +19,12 @@ uniform vec4 uCalm;
 uniform float uBase;
 uniform float uTop;
 
-const vec3 CYAN = vec3(0.18, 0.77, 1.0);
-const vec3 VIOLET = vec3(0.48, 0.36, 1.0);
-const vec3 ROSE = vec3(1.0, 0.30, 0.43);
-const vec3 AMBER = vec3(1.0, 0.62, 0.26);
-const vec3 NIGHT = vec3(0.035, 0.035, 0.05);
+/* Brand board "Midnight + Copper": the two brand colours (#12324B, #CB6831) and their lighter tints. */
+const vec3 MIDNIGHT = vec3(0.071, 0.196, 0.294);
+const vec3 OCEAN = vec3(0.14, 0.4, 0.62);
+const vec3 STEEL = vec3(0.38, 0.64, 0.84);
+const vec3 COPPER = vec3(0.86, 0.44, 0.2);
+const vec3 APRICOT = vec3(1.0, 0.7, 0.45);
 
 vec2 hash2(vec2 p) {
   vec3 q = fract(vec3(p.xyx) * vec3(0.1031, 0.1030, 0.0973));
@@ -58,14 +59,6 @@ float calm(vec2 p, float k) {
   vec2 e = vec2((p.x - uCalm.x) / uCalm.z, (p.y - uCalm.y - uScroll) / uCalm.w);
   return 1.0 - k * exp(-dot(e, e));
 }
-
-/* The brand hues across 0..1: cyan, violet, rose, amber. */
-vec3 hues(float h) {
-  h = clamp(h, 0.0, 1.0) * 3.0;
-  vec3 c = mix(CYAN, VIOLET, smoothstep(0.0, 1.0, h));
-  c = mix(c, ROSE, smoothstep(1.0, 2.0, h));
-  return mix(c, AMBER, smoothstep(2.0, 3.0, h));
-}
 `;
 
 const FOOTER = `
@@ -82,7 +75,7 @@ void main() {
 const MESH = {
   id: 'mesh',
   scale: 0.5,
-  /* A flowing field of the four brand colours; the pointer stirs the paint around itself and drags it along. */
+  /* A flowing field of midnight blues lit by copper; the pointer stirs the paint around itself and drags it along. */
   glsl: `
 vec3 shade(vec2 p) {
   float t = uTime * 0.045;
@@ -95,13 +88,13 @@ vec3 shade(vec2 p) {
   q -= uVel * 0.05 * exp(-r2 / 0.05);
   q.y -= uScroll * 0.3;
   q += 0.45 * vec2(fbm(q * 0.8 + vec2(t, -0.7 * t)), fbm(q * 0.8 + vec2(-0.6 * t, t) + 3.7));
-  vec3 col = vec3(0.16, 0.1, 0.42);
-  col = mix(col, VIOLET, smoothstep(-0.3, 0.3, noise(q * 1.1 + vec2(1.3 * t, 0.0))));
-  col = mix(col, CYAN, 0.9 * smoothstep(-0.05, 0.3, noise(q * 0.9 + vec2(-t, 0.5 * t) + 2.0)));
-  col = mix(col, ROSE, 0.85 * smoothstep(0.06, 0.4, noise(q * 1.2 + vec2(0.7 * t, -t) + 5.3)));
-  col = mix(col, AMBER, 0.8 * smoothstep(0.14, 0.42, noise(q + vec2(0.0, 0.9 * t) + 8.1)));
+  vec3 col = MIDNIGHT;
+  col = mix(col, OCEAN, smoothstep(-0.3, 0.3, noise(q * 1.1 + vec2(1.3 * t, 0.0))));
+  col = mix(col, STEEL, 0.6 * smoothstep(-0.05, 0.3, noise(q * 0.9 + vec2(-t, 0.5 * t) + 2.0)));
+  col = mix(col, COPPER, 0.85 * smoothstep(0.06, 0.4, noise(q * 1.2 + vec2(0.7 * t, -t) + 5.3)));
+  col = mix(col, APRICOT, 0.55 * smoothstep(0.14, 0.42, noise(q + vec2(0.0, 0.9 * t) + 8.1)));
   float top = smoothstep(-0.6, 0.4, p.y + uScroll * 0.6);
-  col = mix(vec3(0.05, 0.04, 0.12), col, mix(0.28, 0.92, top));
+  col = mix(vec3(0.03, 0.09, 0.15), col, mix(0.28, 0.92, top));
   return col * calm(p, 0.4);
 }`
 };

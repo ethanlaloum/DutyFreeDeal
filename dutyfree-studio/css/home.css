@@ -20,10 +20,10 @@
   pointer-events: none;
   contain: strict;
   background:
-    radial-gradient(60% 42% at 28% 4%, rgb(var(--violet) / 0.3), transparent 70%),
-    radial-gradient(48% 36% at 74% 10%, rgb(var(--cyan) / 0.22), transparent 70%),
-    radial-gradient(36% 30% at 52% 0%, rgb(var(--rose) / 0.2), transparent 70%),
-    linear-gradient(180deg, #06070f, #09090c 70%);
+    radial-gradient(60% 42% at 28% 4%, rgb(var(--ocean-rgb) / 0.5), transparent 70%),
+    radial-gradient(48% 36% at 74% 10%, rgb(var(--copper-rgb) / 0.32), transparent 70%),
+    radial-gradient(36% 30% at 52% 0%, rgb(var(--apricot-rgb) / 0.16), transparent 70%),
+    linear-gradient(180deg, #0a2133, #071a2a 70%);
 }
 .sky-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.6s var(--ease); }
 .sky-canvas.is-on { opacity: 1; }
@@ -35,7 +35,7 @@
 /* On the coloured sky, secondary text is a translucent white that takes the hue behind it, and cards let a little of it through. */
 .sky ~ .is-sky { --fg-2: rgba(245, 245, 247, 0.72); }
 .sky ~ .is-sky .aisle-link,
-.sky ~ .is-sky .big-card { background: rgba(20, 20, 22, 0.8); }
+.sky ~ .is-sky .big-card { background: rgba(11, 34, 53, 0.8); }
 
 .search--hero .search-label { display: block; margin: 0 0 12px; text-align: center; font-size: 13px; color: var(--fg-2); }
 .search--hero .search-label strong { color: var(--fg); font-weight: 500; }
@@ -46,16 +46,16 @@
   height: 64px;
   padding: 0 7px 0 24px;
   border-radius: 999px;
-  background: rgba(20, 20, 22, 0.72);
+  background: rgba(11, 34, 53, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.4);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
 }
-.search--hero .search-field:focus-within { border-color: rgba(255, 255, 255, 0.75); background: rgba(28, 28, 31, 0.86); }
+.search--hero .search-field:focus-within { border-color: rgba(255, 255, 255, 0.75); background: rgba(15, 43, 66, 0.88); }
 .search--hero .search-icon { width: 20px; height: 20px; color: var(--fg-2); }
 .search--hero .search-input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--fg); font-size: 18px; }
-.search--hero .search-input::placeholder { color: #8e8e93; }
+.search--hero .search-input::placeholder { color: #8a9db1; }
 .search--hero .btn { height: 50px; }
 
 /* ---------- Departments ---------- */
@@ -92,7 +92,7 @@
 .aisle-name { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; color: var(--fg); text-wrap: balance; }
 .aisle--lg .aisle-name { font-size: 23px; }
 .aisle-subs { font-size: 13px; color: var(--fg-2); }
-.aisle-count { align-self: end; margin-top: 6px; font-size: 12px; color: #8e8e93; font-variant-numeric: tabular-nums; }
+.aisle-count { align-self: end; margin-top: 6px; font-size: 12px; color: #8a9db1; font-variant-numeric: tabular-nums; }
 
 /* ---------- Light chapter ---------- */
 
@@ -131,7 +131,7 @@
 .chip-btn small { font-size: 12px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
 .chip-btn:hover { border-color: var(--fg); }
 .chip-btn[aria-pressed='true'] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
-.chip-btn[aria-pressed='true'] small { color: #c7c7cc; }
+.chip-btn[aria-pressed='true'] small { color: #c2ccd6; }
 .world-foot { display: flex; justify-content: center; margin-top: 48px; }
 
 .onecart { padding: 136px 0; }

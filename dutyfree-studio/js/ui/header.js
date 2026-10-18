@@ -11,6 +11,9 @@ import { announce } from './feedback.js';
 
 /* ---------- Header ---------- */
 
+/* The complete logo of the brand board, in its version for midnight grounds (header and footer are midnight). */
+const LOGO = '<img class="logo" src="./assets/brand/logo-on-dark.svg" alt="" width="166" height="30">';
+
 /** Sign-in address that brings the visitor back to the page they were on. */
 function signInHref() {
   const r = route();
@@ -32,7 +35,7 @@ export function headerHtml() {
   const count = cartCount();
   const favs = state.favorites.length;
   return `<div class="wrap bar">
-    <a class="wordmark" href="#/" data-home aria-label="${esc('DutyFreeDeal, home')}">DutyFreeDeal</a>
+    <a class="wordmark" href="#/" data-home aria-label="${esc('DutyFreeDeal, home')}">${LOGO}</a>
     <nav class="primary" aria-label="${esc('Main navigation')}">
       <button class="nav-link" type="button" aria-expanded="false" aria-controls="panel-rayons" data-toggle="rayons">${esc('All departments')}${icon('caretDown')}</button>
       <a class="nav-link" href="${catalogHref({ collection: 'deals' })}" data-nav="deals">${esc('Deals')}</a>
@@ -107,7 +110,7 @@ export function markCurrentNav() {
 export function footerHtml() {
   return `<div class="wrap">
     <div class="footer-top">
-      <a class="wordmark" href="#/" data-home aria-label="${esc('DutyFreeDeal, home')}">DutyFreeDeal</a>
+      <a class="wordmark" href="#/" data-home aria-label="${esc('DutyFreeDeal, home')}">${LOGO}</a>
       <p>${esc('Duty free, without going through the airport')}</p>
     </div>
     <div class="footer-cols">

@@ -6,6 +6,7 @@ Set PORT to use another port.
 import functools
 import http.server
 import os
+import re
 
 PORT = int(os.environ.get("PORT", "4182"))
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,6 +14,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map, ".js": "text/javascript", ".webp": "image/webp", ".woff2": "font/woff2"}
+
+    def translate_path(self, path):
+        # Same as the Caddyfile: /r/<release>/… serves the file at /…, the prefix only changes the cache key.
+        return super().translate_path(re.sub(r"^/r/[^/]+(/.*)$", r"\1", path))
 
     def end_headers(self):
         self.send_header("Cache-Control", "no-store")

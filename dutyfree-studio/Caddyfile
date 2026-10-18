@@ -6,6 +6,11 @@
 :{$PORT:8080} {
 	root * /srv
 	encode zstd gzip
+	# index.html loads the code under /r/<release>/ (css, js, favicon): the prefix only changes the cache key,
+	# so browsers drop copies cached before revalidation was required.
+	@release path_regexp release ^/r/[^/]+(/.*)$
+	rewrite @release {re.release.1}
+	# Every file is revalidated (ETag, 304 when unchanged): a new deployment shows on the next load.
+	header Cache-Control "no-cache"
 	file_server
-	header /index.html Cache-Control "no-cache"
 }

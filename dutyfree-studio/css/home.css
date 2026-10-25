@@ -2,7 +2,8 @@
 
 /* ---------- Hero ---------- */
 
-.hero { position: relative; isolation: isolate; padding: clamp(36px, 6vh, 80px) 0 clamp(40px, 5.5vh, 64px); overflow: hidden; }
+/* No overflow clipping and stacked above the next section: the search suggestions hang below the hero. */
+.hero { position: relative; z-index: 2; isolation: isolate; padding: clamp(36px, 6vh, 80px) 0 clamp(40px, 5.5vh, 64px); }
 .hero-copy { position: relative; z-index: 2; text-align: center; }
 .display .line { display: block; }
 .display .line--soft { color: var(--fg-2); }

@@ -1,1 +1,3 @@
 .vercel
+# Vercel build output (vercel.json copies the site here)
+public

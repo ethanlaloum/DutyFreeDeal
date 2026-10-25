@@ -1,7 +1,0 @@
-# Vercel serves only the static site (index.html, css, js, assets), as the Railway image does.
-/*
-!/index.html
-!/css
-!/js
-!/assets
-!/vercel.json
